@@ -25,4 +25,14 @@ public class Player : MonoBehaviour
     {
         health -= 1;
     }
+
+    public void IncPoints(long amount = 1)
+    {
+        points += amount;
+    }
+
+    public void DecPoints(long amount = 1)
+    {
+        points += amount;
+    }
 }
