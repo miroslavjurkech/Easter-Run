@@ -10,8 +10,10 @@ public class UIScript: MonoBehaviour {
         Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
         
         //TODO: remove just for test
-        player.IncPoints();
+        //player.IncPoints();
 
         GameObject.FindWithTag("Points").GetComponent<Text>().text = "Points: " + player.points + "p";
     }
+    
+    
 }

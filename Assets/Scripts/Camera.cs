@@ -4,16 +4,25 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform player;
+    private Vector3 _initialOffset;
+    private Vector3 _cameraPosition;
     public bool isSwipeEnabled;
+    
     void Start()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(5, 0, 0);
+        _initialOffset = transform.position - player.position;
+    }
+
+    void FixedUpdate()
+    {
+        _cameraPosition = player.position + _initialOffset;
+        transform.position = _cameraPosition;
     }
     
     void Update()
     {
         var pos = player.transform.position;
-        Debug.Log(SwipeDetector.swipeDirection.ToString());
+        //Debug.Log(SwipeDetector.swipeDirection.ToString());
         if (isSwipeEnabled)
         {
             Swipe(pos);
