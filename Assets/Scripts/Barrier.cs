@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Barrier : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Barrier : MonoBehaviour
         {
             //TODO end game?
             GameObject.FindWithTag("GameController").GetComponent<RoadSimul>().StopAllCoroutines();
+            PlayerPrefs.SetString("points",player.points.ToString());
+            SceneManager.LoadScene("Scenes/GameOverScene");
         }
     }
 }

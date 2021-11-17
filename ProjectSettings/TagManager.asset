@@ -7,6 +7,9 @@ TagManager:
   - Barrier
   - Points
   - Egg
+  - StartButton
+  - BackToMenuButton
+  - PointsInfo
   layers:
   - Default
   - TransparentFX
