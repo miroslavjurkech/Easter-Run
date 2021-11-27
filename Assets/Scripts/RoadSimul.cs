@@ -5,7 +5,9 @@ public class RoadSimul : MonoBehaviour
 {
     public Transform tileObj;
     private Vector3 _nextTileSpawn;
-    
+    public Transform railingObj;
+    private Vector3 _nextRailingSpawn;
+    private int _randZ;
     void Start()
     {
         _nextTileSpawn.x = 20;
@@ -16,13 +18,19 @@ public class RoadSimul : MonoBehaviour
     private IEnumerator SpawnTile()
     {
         yield return new WaitForSeconds(1);
-        var obj = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
+        _randZ = Random.Range(-1, 2);
+        _nextRailingSpawn = _nextTileSpawn;
+        _nextRailingSpawn.z = 5 + _randZ;
+        _nextRailingSpawn.y = 0.6f;
+        var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
+        var newRailing = Instantiate(railingObj, _nextRailingSpawn, railingObj.rotation);
         _nextTileSpawn.x += 5;
         StartCoroutine(SpawnTile());
-        StartCoroutine(DisposeTile(obj));
+        StartCoroutine(DisposeTile(newTile));
+        StartCoroutine(DisposeTile(newRailing));
     }
 
-    private IEnumerator DisposeTile(Transform obj)
+    private static IEnumerator DisposeTile(Component obj)
     {
         yield return new WaitForSeconds(10);
         Destroy(obj.gameObject);
