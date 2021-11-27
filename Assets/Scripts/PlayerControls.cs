@@ -1,7 +1,7 @@
 using Behaviour;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class PlayerControls : MonoBehaviour
 {
     public Transform player;
     private Vector3 _initialOffset;

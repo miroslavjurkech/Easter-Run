@@ -32,7 +32,7 @@ public class RoadSimul : MonoBehaviour
 
     private static IEnumerator DisposeTile(Component obj)
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(20);
         Destroy(obj.gameObject);
     }
 }
