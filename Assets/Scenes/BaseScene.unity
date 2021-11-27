@@ -1395,6 +1395,10 @@ MonoBehaviour:
   tileObj: {fileID: 5086769381808249416, guid: a3985cc4a663d560a9d21c6dcbfdcf6b, type: 3}
   railingObj: {fileID: 8657730966299099908, guid: da8333905b391862686a1c4d4b92758b,
     type: 3}
+  clothesObj: {fileID: 181844332102184342, guid: e2ac9daae0fa491428c63de4aefb420b,
+    type: 3}
+  signObj: {fileID: 3291208091655519858, guid: fc9a58be9e46dcceabd96504bdcccd23, type: 3}
+  eggObj: {fileID: 3795819845118563252, guid: 16908ec2bc79e6bdd8bcd2c6ab4f27ea, type: 3}
 --- !u!4 &1714750827
 Transform:
   m_ObjectHideFlags: 0
