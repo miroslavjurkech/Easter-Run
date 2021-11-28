@@ -20,10 +20,18 @@ public class RoadSimul : MonoBehaviour
     
     private int _randZ;
     private int _randChoice;
+    
+    [Range(0.1f, 2)]
+    public float scale = 1;
+    
     void Start()
     {
         _nextTileSpawn.x = 20;
         tileObj.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        railingObj.localScale = railingObj.localScale * scale;
+        clothesObj.localScale = clothesObj.localScale * scale;
+        signObj.localScale = signObj.localScale * scale;
+        eggObj.localScale = eggObj.localScale * scale;
         StartCoroutine(SpawnTile());
     }
 

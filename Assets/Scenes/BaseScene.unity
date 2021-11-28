@@ -1399,6 +1399,7 @@ MonoBehaviour:
     type: 3}
   signObj: {fileID: 3291208091655519858, guid: fc9a58be9e46dcceabd96504bdcccd23, type: 3}
   eggObj: {fileID: 3795819845118563252, guid: 16908ec2bc79e6bdd8bcd2c6ab4f27ea, type: 3}
+  scale: 1
 --- !u!4 &1714750827
 Transform:
   m_ObjectHideFlags: 0
