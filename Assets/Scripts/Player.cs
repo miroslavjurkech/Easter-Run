@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.UIElements;
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class Player : MonoBehaviour
     
     void Start()
     {
-        Run();
+        StartCoroutine("WaitForStart");
+        //Run();
     }
 
     private void Update()
@@ -31,9 +33,15 @@ public class Player : MonoBehaviour
     //     Destroy(other.gameObject);
     // }
 
+    private IEnumerator WaitForStart()
+    {
+        yield return new WaitForSeconds (3);
+        Run();
+    }
+
     public void Run()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(speed, 0, 0);
+        GetComponent<Rigidbody>().velocity = new Vector3( speed, 0, 0);
     }
     
     public void IncHealth()
