@@ -1,22 +1,19 @@
 using Behaviour;
 using UnityEngine;
 
+[RequireComponent(typeof(Transform))]
+[RequireComponent(typeof(Animator))]
 public class PlayerControls : MonoBehaviour
 {
-    public Transform player;
-    private Vector3 _initialOffset;
-    private Vector3 _cameraPosition;
+    private Transform player;
+    private Animator anim;
     public bool isSwipeEnabled;
     
     void Start()
     {
-        _initialOffset = transform.position - player.position;
-    }
-
-    void FixedUpdate()
-    {
-        _cameraPosition = player.position + _initialOffset;
-        transform.position = _cameraPosition;
+        player = GetComponent<Transform>();
+        anim = GetComponent<Animator>();
+        anim.SetTrigger("jump");
     }
     
     void Update()
@@ -73,14 +70,10 @@ public class PlayerControls : MonoBehaviour
                 pos.z += 1;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pos.y < 1)
-            {
-                pos.y += 1;
-                // wait
-                pos.y -= 1;
-            }
+            anim.SetTrigger("jump");
+            //Jump is trigger on the playerAnimationScript
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
