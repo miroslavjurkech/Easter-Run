@@ -228,7 +228,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 124
   m_CollisionDetection: 1
 --- !u!136 &41224504
 CapsuleCollider:
@@ -241,9 +241,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.26177362
-  m_Height: 2.030735
+  m_Height: 1.8563988
   m_Direction: 1
-  m_Center: {x: -0.0234195, y: 0.8829705, z: 0.031068048}
+  m_Center: {x: -0.0234195, y: 0.94586575, z: 0.031068048}
 --- !u!114 &41224507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,6 +1545,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6017083664785188797, guid: 2c3c7b33f3eea7b41811d1ba0f85d750,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6398252887488855303, guid: 2c3c7b33f3eea7b41811d1ba0f85d750,
         type: 3}
       propertyPath: m_RootOrder
@@ -1573,7 +1578,7 @@ PrefabInstance:
     - target: {fileID: 6398252887488855303, guid: 2c3c7b33f3eea7b41811d1ba0f85d750,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05000019
+      value: 0.0500002
       objectReference: {fileID: 0}
     - target: {fileID: 6398252887488855303, guid: 2c3c7b33f3eea7b41811d1ba0f85d750,
         type: 3}
