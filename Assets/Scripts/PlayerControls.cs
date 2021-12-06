@@ -13,7 +13,6 @@ public class PlayerControls : MonoBehaviour
     {
         player = GetComponent<Transform>();
         anim = GetComponent<Animator>();
-        anim.SetTrigger("jump");
     }
     
     void Update()

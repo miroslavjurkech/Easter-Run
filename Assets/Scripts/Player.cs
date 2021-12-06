@@ -3,9 +3,15 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
+    private Animator anim;
+    
     public int maxHealth;
+
+    [Header("Idle for given time in second and then run")]
+    public float startAfter;
     
     public int health;
     public long points;
@@ -18,6 +24,7 @@ public class Player : MonoBehaviour
     
     void Start()
     {
+        anim = GetComponent<Animator>();
         StartCoroutine("WaitForStart");
         //Run();
     }
@@ -35,12 +42,14 @@ public class Player : MonoBehaviour
 
     private IEnumerator WaitForStart()
     {
-        yield return new WaitForSeconds (3);
+        yield return new WaitForSeconds (startAfter);
         Run();
+        //anim.SetTrigger("stopIdle");
     }
 
     public void Run()
     {
+        anim.SetBool("idle", false);
         GetComponent<Rigidbody>().velocity = new Vector3( speed, 0, 0);
     }
     
