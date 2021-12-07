@@ -10,6 +10,8 @@ TagManager:
   - StartButton
   - BackToMenuButton
   - PointsInfo
+  - Enemy
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX

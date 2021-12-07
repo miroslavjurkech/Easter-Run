@@ -2167,6 +2167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  startAfter: 2
   health: 3
   points: 0
   speed: 4

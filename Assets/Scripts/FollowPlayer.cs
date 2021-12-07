@@ -10,6 +10,11 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (player == null)
+        {
+            Debug.Log("Player to follow must be set!");
+        }
+
         _initialOffset = transform.position - player.position;
     }
 

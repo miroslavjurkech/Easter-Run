@@ -4,9 +4,11 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
     private Animator anim;
+    private Rigidbody rigidbody;
     
     public int maxHealth;
 
@@ -25,8 +27,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
+
         StartCoroutine("WaitForStart");
-        //Run();
     }
 
     private void Update()
@@ -43,14 +46,18 @@ public class Player : MonoBehaviour
     private IEnumerator WaitForStart()
     {
         yield return new WaitForSeconds (startAfter);
+        anim.SetBool("idle", false);
         Run();
-        //anim.SetTrigger("stopIdle");
     }
 
     public void Run()
     {
-        anim.SetBool("idle", false);
-        GetComponent<Rigidbody>().velocity = new Vector3( speed, 0, 0);
+        rigidbody.velocity = new Vector3( speed, 0, 0);
+    }
+
+    public void Stop()
+    {
+        rigidbody.velocity = new Vector3( 0, 0, 0 );
     }
     
     public void IncHealth()
@@ -77,6 +84,16 @@ public class Player : MonoBehaviour
                 OnHealthChangedCallback.Invoke();
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if (other.gameObject.tag != "Enemy")
+            return;
+
+        Stop();
+        anim.SetTrigger("kick");
+        //Run is again trigger from animation state machine after kick finishes
     }
 
     public void IncPoints(long amount = 1)
