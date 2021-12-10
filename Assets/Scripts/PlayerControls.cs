@@ -69,13 +69,14 @@ public class PlayerControls : MonoBehaviour
                 pos.z += 1;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             anim.SetTrigger("jump");
             //Jump is trigger on the playerAnimationScript
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            anim.SetTrigger("slide");
         }
         player.transform.position = pos;
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using RPGCharacterAnimsFREE;
 using UnityEngine;
 
 namespace WarriorAnimsFREE

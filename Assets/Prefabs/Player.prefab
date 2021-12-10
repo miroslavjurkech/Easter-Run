@@ -398,6 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5242829391187820098}
+  - component: {fileID: 4417882048139330896}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -420,6 +421,20 @@ Transform:
   m_Father: {fileID: 8932222723810023017}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4417882048139330896
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395765156356109268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 0.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!1 &406586443325276259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,7 +2072,6 @@ GameObject:
   - component: {fileID: 5733271829449844004}
   - component: {fileID: 1683085397531982913}
   - component: {fileID: 1683085396493430038}
-  - component: {fileID: 1683085396493430041}
   - component: {fileID: 1683085396493430040}
   - component: {fileID: 1683085396493430042}
   m_Layer: 0
@@ -2127,20 +2141,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 1
---- !u!136 &1683085396493430041
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961696814000308126}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.26177362
-  m_Height: 1.8563988
-  m_Direction: 1
-  m_Center: {x: -0.0234195, y: 0.94586575, z: 0.031068048}
 --- !u!114 &1683085396493430040
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - PointsInfo
   - Enemy
   - CinemachineTarget
+  - PlayerSpine
   layers:
   - Default
   - TransparentFX

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 181844332102184342}
   - component: {fileID: 6581023405503000164}
   - component: {fileID: 6192129855191787709}
-  - component: {fileID: 4435956340982013329}
   - component: {fileID: -6872213840269321927}
+  - component: {fileID: 9056871870364761414}
   m_Layer: 0
   m_Name: ClothesWire
   m_TagString: Barrier
@@ -56,7 +56,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -87,20 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4435956340982013329
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524667880230345180}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &-6872213840269321927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c186b60dd1e7af9c49854333c90a0b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &9056871870364761414
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524667880230345180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2, z: 30}
+  m_Center: {x: 0.000000059604645, y: 0, z: 15}
 --- !u!1 &2467197591167062968
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +122,6 @@ GameObject:
   - component: {fileID: 7151897458167375768}
   - component: {fileID: 4835200921995519446}
   - component: {fileID: 4300723029398336773}
-  - component: {fileID: 1118130663915118681}
   m_Layer: 0
   m_Name: PillaretLeft
   m_TagString: Untagged
@@ -165,7 +162,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -196,20 +192,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1118130663915118681
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2467197591167062968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3816904811666014550
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +203,6 @@ GameObject:
   - component: {fileID: 5795011737068955825}
   - component: {fileID: 5714237647529606099}
   - component: {fileID: 5140294419599648177}
-  - component: {fileID: 7972536469685545289}
   m_Layer: 0
   m_Name: PillaretRight
   m_TagString: Untagged
@@ -262,7 +243,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -293,20 +273,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7972536469685545289
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3816904811666014550}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7578125193469948299
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +284,6 @@ GameObject:
   - component: {fileID: 5778506256049664421}
   - component: {fileID: 5361351518917644963}
   - component: {fileID: 6519687938379774992}
-  - component: {fileID: 7915056954918517262}
   m_Layer: 0
   m_Name: Clothes
   m_TagString: Untagged
@@ -359,7 +324,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -390,16 +354,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7915056954918517262
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7578125193469948299}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

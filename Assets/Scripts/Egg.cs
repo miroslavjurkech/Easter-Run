@@ -21,9 +21,9 @@ public class Egg : MonoBehaviour
     {
         Debug.Log("You collected an egg");
 
-        if (!other.gameObject.tag.Equals("Player")) return;
+        if (!other.gameObject.tag.Equals("PlayerSpine")) return;
         
-        var player = other.gameObject.GetComponent<Player>();
+        var player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
         player.IncPoints();
         Destroy(gameObject);

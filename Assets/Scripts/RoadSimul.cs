@@ -42,7 +42,7 @@ public class RoadSimul : MonoBehaviour
         _randZ = Random.Range(-1, 2);
         _nextRailingSpawn = _nextTileSpawn;
         _nextRailingSpawn.z = 5 + _randZ;
-        _nextRailingSpawn.y = 0.6f;
+        _nextRailingSpawn.y = 0.7f;
         var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
         var newBlock = Instantiate(railingObj, _nextRailingSpawn, railingObj.rotation);
         StartCoroutine(DisposeTile(newTile));
@@ -52,7 +52,7 @@ public class RoadSimul : MonoBehaviour
         _nextTileSpawn.x += 5;
         _randZ = Random.Range(-1, 2);
         _nextClothesSpawn.x = _nextTileSpawn.x;
-        _nextClothesSpawn.y = 0.6f;
+        _nextClothesSpawn.y = 1.2f;
         _nextClothesSpawn.z = 5 + _randZ;
         newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
         newBlock = Instantiate(clothesObj, _nextClothesSpawn, clothesObj.rotation);

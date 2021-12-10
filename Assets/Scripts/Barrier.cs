@@ -10,7 +10,7 @@ public class Barrier : MonoBehaviour
 
         if (!other.gameObject.tag.Equals("Player")) return;
         
-        var player = other.gameObject.GetComponent<Player>();
+        var player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
         player.DecHealth();
 
