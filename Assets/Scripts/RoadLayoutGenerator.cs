@@ -27,7 +27,7 @@ public class RoadLayoutGenerator
     [SerializeField]
     private float _chanceForLowBarier = 30.0f;
 
-    public RoadGenerator( float chanceForHighBarier, float chanceForLowBarier )
+    public RoadLayoutGenerator( float chanceForHighBarier, float chanceForLowBarier )
     {
         _chanceForLowBarier = chanceForLowBarier;
         _chanceForHighBarier = chanceForHighBarier;
