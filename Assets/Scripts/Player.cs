@@ -21,6 +21,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed;
     
+    public bool InFight { get; private set; }
+
+    private string FightExpected { get; set; }
+    public string FightUsed  { get; set; }
+    
     public delegate void OnHealthChangedDelegate();
     public OnHealthChangedDelegate OnHealthChangedCallback;
     
@@ -58,6 +63,7 @@ public class Player : MonoBehaviour
     public void Stop()
     {
         rigidbody.velocity = new Vector3( 0, 0, 0 );
+        anim.SetTrigger("stop");
     }
     
     public void IncHealth()
@@ -86,14 +92,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    public void Kick()
     {
-        if (other.gameObject.tag != "Enemy")
-            return;
+        if (IsSuccessfulFight()) {
+            anim.SetTrigger("kick");
+        }
+    }
 
-        Stop();
-        anim.SetTrigger("kick");
-        //Run is again trigger from animation state machine after kick finishes
+    public void GetHit()
+    {
+        anim.SetTrigger("hit");
+        DecPoints();
+        
+        LeaveFight();
+    }
+
+    public void EnterFight(string expected)
+    {
+        FightExpected = expected;
+        InFight = true;
+    }
+
+    public void LeaveFight()
+    {
+        FightExpected = null;
+        FightUsed = null;
+        InFight = false;
+    }
+
+    public bool IsSuccessfulFight()
+    {
+        Debug.Log("FIGHT");
+        Debug.Log("Should be: " + FightExpected);
+        Debug.Log("Is: " + FightUsed);
+        return InFight && FightExpected.Equals(FightUsed);
     }
 
     public void IncPoints(long amount = 1)
@@ -103,6 +135,7 @@ public class Player : MonoBehaviour
 
     public void DecPoints(long amount = 1)
     {
-        points += amount;
+        if (points >= amount) 
+            points -= amount;
     }
 }

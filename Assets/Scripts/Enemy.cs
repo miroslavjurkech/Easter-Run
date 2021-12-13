@@ -8,29 +8,51 @@ public class Enemy : MonoBehaviour
 {
     private BoxCollider animationTrigger;
     private Animator anim;
-    
-    [Header("Adjust time from collision with player to dead animation")]
-    [SerializeField] float waitForDeadTime;
+    public string Direction { get; set; }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Direction = ChooseDirection();
         anim = GetComponent<Animator>();
         animationTrigger = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other) {
-        if ( other.gameObject.tag != "Player" )
-            return;
-
-        StartCoroutine(CorutineForDead());
+        if (other.CompareTag("PlayerKickFoot"))
+        {
+            anim.SetTrigger("die");
+        }
     }
 
-    private IEnumerator CorutineForDead() 
+    //Event z punch animacie
+    public void Hit()
     {
-        yield return new WaitForSeconds(waitForDeadTime);
-        anim.SetBool("isDead", true);
-        Debug.Log("Enemy is dead");
+        GameObject.FindWithTag("Player").GetComponent<Player>().GetHit();
+    }
+
+    public void Punch()
+    {
+        anim.SetTrigger("punch");
+    }
+
+    public string ChooseDirection()
+    {
+        int dir = Random.Range(0, 4);
+        
+        switch(dir)
+        {
+            case 0:
+                return "UP";
+            case 1:
+                return "DOWN";
+            case 2:
+                return "LEFT";
+            case 3:
+                return "RIGHT";
+        }
+
+        return "";
     }
 }

@@ -13,6 +13,8 @@ TagManager:
   - Enemy
   - CinemachineTarget
   - PlayerSpine
+  - KickTrigger
+  - PlayerKickFoot
   layers:
   - Default
   - TransparentFX

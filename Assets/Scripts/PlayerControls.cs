@@ -33,18 +33,55 @@ public class PlayerControls : MonoBehaviour
 
     void Swipe(Vector3 pos)
     {
+        var script = player.GetComponent<Player>();
+        
         switch (SwipeDetector.swipeDirection)
         {
             case Behaviour.Swipe.Left:
-                if (pos.z == 5)
+                if (script.InFight)
                 {
-                    pos.z += 1;
+                    script.FightUsed = "LEFT";
+                }
+                else
+                {
+                    if (pos.z > 4)
+                    {
+                        pos.z -= 1;
+                    }
                 }
                 break;
             case Behaviour.Swipe.Right:
-                if (pos.z == 5f)
+                if (script.InFight)
                 {
-                    pos.z -= 1;
+                    script.FightUsed = "RIGHT";
+                }
+                else
+                {
+                    if (pos.z < 6)
+                    {
+                        pos.z += 1;
+                    }
+                }
+                break;
+            case Behaviour.Swipe.Up:
+                if (script.InFight)
+                {
+                    script.FightUsed = "UP";
+                }
+                else
+                {
+                    //Jump is trigger on the playerAnimationScript
+                    anim.SetTrigger("jump");
+                }
+                break;
+            case Behaviour.Swipe.Down:
+                if (script.InFight)
+                {
+                    script.FightUsed = "DOWN";
+                }
+                else
+                {
+                    anim.SetTrigger("slide");
                 }
                 break;
             default:
@@ -55,28 +92,58 @@ public class PlayerControls : MonoBehaviour
     
     void Buttons(Vector3 pos)
     {
+        var script = player.GetComponent<Player>();
+        
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (pos.z > 4)
+            if (script.InFight)
             {
-                pos.z -= 1;
+                script.FightUsed = "RIGHT";
+            }
+            else
+            {
+                if (pos.z > 4)
+                {
+                    pos.z -= 1;
+                }
             }
         } 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (pos.z < 6)
+            if (script.InFight)
             {
-                pos.z += 1;
+                script.FightUsed = "LEFT";
+            }
+            else
+            {
+                if (pos.z < 6)
+                {
+                    pos.z += 1;
+                }
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            anim.SetTrigger("jump");
-            //Jump is trigger on the playerAnimationScript
+            if (script.InFight)
+            {
+                script.FightUsed = "UP";
+            }
+            else
+            {
+                //Jump is trigger on the playerAnimationScript
+                anim.SetTrigger("jump");
+            }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            anim.SetTrigger("slide");
+            if (script.InFight)
+            {
+                script.FightUsed = "DOWN";
+            }
+            else
+            {
+                anim.SetTrigger("slide");
+            }
         }
         player.transform.position = pos;
     }

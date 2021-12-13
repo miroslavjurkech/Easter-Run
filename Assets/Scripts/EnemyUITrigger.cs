@@ -1,21 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SphereCollider))]
 public class EnemyUITrigger : MonoBehaviour
 {
-    private SphereCollider UITrigger;
-    // Start is called before the first frame update
-    void Start()
+    public Image up;
+    public Image down;
+    public Image left;
+    public Image right;
+    
+    private void OnTriggerEnter(Collider other)
     {
-        UITrigger = GetComponent<SphereCollider>();
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if ( other.gameObject.tag != "Player" )
+        if (!other.CompareTag("PlayerSpine"))
             return;
-        
-        Debug.Log("UI should be displayed now");
+
+        switch(gameObject.GetComponentInParent<Enemy>().Direction)
+        {
+            case "UP":
+                up.gameObject.SetActive(true);
+                break;
+            case "DOWN":
+                down.gameObject.SetActive(true);
+                break;
+            case "LEFT":
+                left.gameObject.SetActive(true);
+                break;
+            case "RIGHT":
+                right.gameObject.SetActive(true);
+                break;
+        }
     }
 }
