@@ -11,12 +11,9 @@ namespace whiping
             animator = GetComponent<Animator>();
         }
 
-        void Update()
+        public void Whip()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                animator.SetTrigger("whip");
-            }
+            animator.SetTrigger("whip");
         }
     }
 }

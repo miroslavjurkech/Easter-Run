@@ -75,6 +75,8 @@ namespace whiping
             gameObject.GetComponent<Image>().color = Color.green;
             _boost++;
 
+            GameObject.FindWithTag("Player").GetComponent<PlayerWhiping>().Whip();
+
             if (_boost >= 3)
             {
                 bar.fillAmount += 0.1f;
@@ -163,11 +165,10 @@ namespace whiping
             if (statuses.Count == 0)
             {
                 directions.Dequeue();
-            }
-            
-            if (statuses.Count == 0 || !statuses.Dequeue())
-            {
                 Missed();
+            }
+            else {
+                statuses.Dequeue();
             }
         }
     }

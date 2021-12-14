@@ -468,6 +468,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1670119355, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119355, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119355, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119355, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Center.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119355, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119358, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670119358, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1311456794511363991, guid: a5eccd53dc8c9ab408eeb5999ad94135,
         type: 3}
       propertyPath: m_RootOrder
