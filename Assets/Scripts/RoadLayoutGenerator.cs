@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public enum RoadType
 {
@@ -28,7 +25,7 @@ public class RoadLayoutGenerator
     [SerializeField]
     private float _chanceForLowBarier = 30.0f;
 
-    public RoadLayoutGenerator( float chanceForHighBarier, float chanceForLowBarier )
+    public RoadLayoutGenerator(float chanceForHighBarier, float chanceForLowBarier)
     {
         _chanceForLowBarier = chanceForLowBarier;
         _chanceForHighBarier = chanceForHighBarier;

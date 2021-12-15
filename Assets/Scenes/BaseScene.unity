@@ -1407,7 +1407,16 @@ MonoBehaviour:
     type: 3}
   signObj: {fileID: 3291208091655519858, guid: fc9a58be9e46dcceabd96504bdcccd23, type: 3}
   eggObj: {fileID: 3795819845118563252, guid: 16908ec2bc79e6bdd8bcd2c6ab4f27ea, type: 3}
-  scale: 1
+  bushObj: {fileID: 882451370741781260, guid: 4ee301ce18556eddb8ce8a2a582e7ff5, type: 3}
+  enemyObj: {fileID: 3124111561546150533, guid: 2781b746ab62c8cc682e312d0f573b7a,
+    type: 3}
+  girlObj: {fileID: 1311456794511363991, guid: a5eccd53dc8c9ab408eeb5999ad94135, type: 3}
+  lobollyObj: {fileID: 7020723887236993347, guid: b9a5c337ecc7c689b967cea4374eca6d,
+    type: 3}
+  pillarObj: {fileID: 4395908673836391204, guid: ab4a7244e38966373ba8cf75bc2c923a,
+    type: 3}
+  solidRailObj: {fileID: 894433634718093336, guid: 68a5c4086f85feaa08e73af8a4ab9980,
+    type: 3}
 --- !u!4 &1714750827
 Transform:
   m_ObjectHideFlags: 0

@@ -1,37 +1,31 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class RoadSimul : MonoBehaviour
 {
     public Transform tileObj;
     private Vector3 _nextTileSpawn;
-    
+
     public Transform railingObj;
-    private Vector3 _nextRailingSpawn;
-
     public Transform clothesObj;
-    private Vector3 _nextClothesSpawn;
-
     public Transform signObj;
-    private Vector3 _nextSignSpawn;
-    
     public Transform eggObj;
-    private Vector3 _nextEggSpawn;
-    
-    private int _randZ;
-    private int _randChoice;
-    
-    [Range(0.1f, 2)]
-    public float scale = 1;
-    
+    public Transform bushObj;
+    public Transform enemyObj;
+    public Transform girlObj;
+    public Transform lobollyObj;
+    public Transform pillarObj;
+    public Transform solidRailObj;
+
+    private RoadLayoutGenerator _generator;
+
     void Start()
     {
         _nextTileSpawn.x = 20;
         tileObj.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        railingObj.localScale = railingObj.localScale * scale;
-        clothesObj.localScale = clothesObj.localScale * scale;
-        signObj.localScale = signObj.localScale * scale;
-        eggObj.localScale = eggObj.localScale * scale;
+        _generator = new RoadLayoutGenerator(60, 70);
+
         StartCoroutine(SpawnTile());
     }
 
@@ -39,56 +33,51 @@ public class RoadSimul : MonoBehaviour
     private IEnumerator SpawnTile()
     {
         yield return new WaitForSeconds(1);
-        _randZ = Random.Range(-1, 2);
-        _nextRailingSpawn = _nextTileSpawn;
-        _nextRailingSpawn.z = 5 + _randZ;
-        _nextRailingSpawn.y = 0.7f;
-        var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
-        var newBlock = Instantiate(railingObj, _nextRailingSpawn, railingObj.rotation);
-        StartCoroutine(DisposeTile(newTile));
-        StartCoroutine(DisposeTile(newBlock));
-        
-        
-        _nextTileSpawn.x += 5;
-        _randZ = Random.Range(-1, 2);
-        _nextClothesSpawn.x = _nextTileSpawn.x;
-        _nextClothesSpawn.y = 1.2f;
-        _nextClothesSpawn.z = 5 + _randZ;
-        newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
-        newBlock = Instantiate(clothesObj, _nextClothesSpawn, clothesObj.rotation);
-        StartCoroutine(DisposeTile(newTile));
-        StartCoroutine(DisposeTile(newBlock));
-
-        _randZ = _randZ switch
+        foreach (var _ in Enumerable.Range(0, 10))
         {
-            0 => 1,
-            1 => -1,
-            _ => 0
-        };
+            var barriers = _generator.GetNextRow();
+            var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
+            foreach (var (barrier, i) in barriers.Select((type, i) => (type, i)))
+            {
+                var nextObj = GetTransformFromType(barrier);
+                if (nextObj != null)
+                {
+                    var blockSpawn = _nextTileSpawn;
+                    blockSpawn.z = 5 + i - 1;
+                    blockSpawn.y = 0.7f;
+                    Instantiate(nextObj, blockSpawn, nextObj.rotation, newTile);
+                }
+            }
+            StartCoroutine(DisposeTile(newTile));
+            _nextTileSpawn.x += 5;
+        }
 
-        _nextSignSpawn.x = _nextTileSpawn.x;
-        _nextSignSpawn.y = 0.6f;
-        _nextSignSpawn.z = 5 + _randZ;
-        newBlock = Instantiate(signObj, _nextSignSpawn, signObj.rotation);
-        StartCoroutine(DisposeTile(newBlock));
-        
-        _randZ = _randZ switch
-        {
-            1 => -1,
-            -1 => 0,
-            _ => 1
-        };
-        
-        _nextEggSpawn.x = _nextTileSpawn.x;
-        _nextEggSpawn.y = 0.6f;
-        _nextEggSpawn.z = 5 + _randZ;
-        newBlock = Instantiate(eggObj, _nextEggSpawn, eggObj.rotation);
-        StartCoroutine(DisposeTile(newBlock));
-        
-        
-        _nextTileSpawn.x += 5;
+
+
+        // _nextTileSpawn.x += 5;
+        // _randZ = Random.Range(-1, 2);
+        // _nextClothesSpawn.x = _nextTileSpawn.x;
+        // _nextClothesSpawn.y = 1.2f;
+        // _nextClothesSpawn.z = 5 + _randZ;
+        // newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
+        // // newBlock = Instantiate(clothesObj, _nextClothesSpawn, clothesObj.rotation);
+        // StartCoroutine(DisposeTile(newTile));
+        // // StartCoroutine(DisposeTile(newBlock));
+        //
+        // _nextSignSpawn.x = _nextTileSpawn.x;
+        // _nextSignSpawn.y = 0.6f;
+        // _nextSignSpawn.z = 5 + _randZ;
+        // // newBlock = Instantiate(signObj, _nextSignSpawn, signObj.rotation);
+        // // StartCoroutine(DisposeTile(newBlock));
+        //
+        // _nextEggSpawn.x = _nextTileSpawn.x;
+        // _nextEggSpawn.y = 0.6f;
+        // _nextEggSpawn.z = 5 + _randZ;
+        // // newBlock = Instantiate(eggObj, _nextEggSpawn, eggObj.rotation);
+        // // StartCoroutine(DisposeTile(newBlock));
+        //
+        // _nextTileSpawn.x += 5;
         StartCoroutine(SpawnTile());
-        
     }
 
     private static IEnumerator DisposeTile(Component obj)
@@ -97,8 +86,59 @@ public class RoadSimul : MonoBehaviour
         //Destroy(obj.gameObject);
     }
 
-    // private Transform RandomGenerate()
-    // {
-    //     var r = Random()
-    // }
+    private Transform GetTransformFromType(RoadType type)
+    {
+        var random = Random.Range(0, 71);
+        int r;
+        switch (type)
+        {
+            case RoadType.Reachable:
+                r = random % 2;
+                switch (r)
+                {
+                    case 0:
+                        return null;
+                    case 1:
+                        return eggObj;
+                }
+                break;
+            case RoadType.BarierHigh:
+                r = random % 3;
+                switch (r)
+                {
+                    case 0:
+                        return bushObj;
+                    case 1:
+                        return pillarObj;
+                    case 2:
+                        return signObj;
+                }
+                break;
+            case RoadType.BarierLow:
+                r = random % 4;
+                switch (r)
+                {
+                    case 0:
+                        return clothesObj;
+                    case 1:
+                        return lobollyObj;
+                    case 2:
+                        return railingObj;
+                    case 3:
+                        return solidRailObj;
+                }
+                break;
+            case RoadType.theWhiper:
+                r = random % 2;
+                switch (r)
+                {
+                    case 0:
+                        return enemyObj;
+                    case 1:
+                        return girlObj;
+                }
+                break;
+        }
+        return null;
+    }
 }
