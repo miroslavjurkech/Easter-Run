@@ -9,6 +9,7 @@ public enum RoadType
     Unreachable, // Clear but unreachable piece of road
     BarierHigh, // Cannot be crossed
     BarierLow, // Can be jumped over or crawled under
+    theWhiper
 }
 
 public class RoadLayoutGenerator
