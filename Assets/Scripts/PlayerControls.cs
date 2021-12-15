@@ -13,6 +13,14 @@ public class PlayerControls : MonoBehaviour
     {
         player = GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        
+#if UNITY_ANDROID
+        isSwipeEnabled = true;
+#elif UNITY_IOS
+        isSwipeEnabled = true;
+#else
+        isSwipeEnabled = false;
+#endif
     }
     
     void Update()
@@ -27,8 +35,6 @@ public class PlayerControls : MonoBehaviour
         {
             Buttons(pos);
         }
-        
-
     }
 
     void Swipe(Vector3 pos)
