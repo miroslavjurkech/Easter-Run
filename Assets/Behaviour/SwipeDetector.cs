@@ -11,6 +11,8 @@ namespace Behaviour
         Vector2 secondPressPos;
         Vector2 currentSwipe;
 
+        public bool isNachujaKamera;
+
         public static Swipe swipeDirection;
  
         void Update()
@@ -45,12 +47,26 @@ namespace Behaviour
                         // Swipe down
                     } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
                         swipeDirection = Swipe.Down;
-                        // Swipe left
-                    } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                        swipeDirection = Swipe.Left;
                         // Swipe right
+                    } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                        if (isNachujaKamera)
+                        {
+                            swipeDirection = Swipe.Right;
+                        }
+                        else
+                        {
+                            swipeDirection = Swipe.Left;
+                        }
+                        // Swipe left 
                     } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                        swipeDirection = Swipe.Right;
+                        if (isNachujaKamera)
+                        {
+                            swipeDirection = Swipe.Left;
+                        }
+                        else
+                        {
+                            swipeDirection = Swipe.Right;
+                        }
                     }
                 }
             } else {

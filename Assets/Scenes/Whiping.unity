@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 167070164}
   - component: {fileID: 167070163}
   - component: {fileID: 167070162}
+  - component: {fileID: 167070165}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -206,6 +207,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.256, y: 0, z: 0}
+--- !u!114 &167070165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167070161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a9a4d8900245c2a06ed3dbdace514d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSwipeLength: 200
 --- !u!1 &931449758
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251099805794671969, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72,
+        type: 3}
+      propertyPath: isSwipeEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72, type: 3}

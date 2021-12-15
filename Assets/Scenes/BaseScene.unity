@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 47061560}
   - component: {fileID: 47061559}
   - component: {fileID: 47061562}
+  - component: {fileID: 47061564}
   - component: {fileID: 47061563}
   m_Layer: 0
   m_Name: Main Camera
@@ -286,8 +287,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47061558}
-  m_LocalRotation: {x: 0.15267321, y: 0.690428, z: -0.15267321, w: 0.69042814}
-  m_LocalPosition: {x: -7.28, y: 3.43, z: 4.944}
+  m_LocalRotation: {x: 0.15267237, y: 0.69042826, z: -0.15267237, w: 0.69042826}
+  m_LocalPosition: {x: -7.201, y: 3.43, z: 4.944}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -322,6 +323,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6398252889299140869}
+--- !u!114 &47061564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47061558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a9a4d8900245c2a06ed3dbdace514d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSwipeLength: 200
+  isNachujaKamera: 1
 --- !u!1 &115764250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,6 +1905,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683085396493430040, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: isSwipeEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
         type: 3}
