@@ -94,9 +94,7 @@ public class Player : MonoBehaviour
 
     public void Kick()
     {
-        if (IsSuccessfulFight()) {
             anim.SetTrigger("kick");
-        }
     }
 
     public void GetHit()
@@ -109,6 +107,7 @@ public class Player : MonoBehaviour
 
     public void EnterFight(string expected)
     {
+        anim.SetTrigger("cancel");
         FightExpected = expected;
         InFight = true;
     }
@@ -122,9 +121,9 @@ public class Player : MonoBehaviour
 
     public bool IsSuccessfulFight()
     {
-        Debug.Log("FIGHT");
+        /*Debug.Log("FIGHT");
         Debug.Log("Should be: " + FightExpected);
-        Debug.Log("Is: " + FightUsed);
+        Debug.Log("Is: " + FightUsed);*/
         return InFight && FightExpected.Equals(FightUsed);
     }
 

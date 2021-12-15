@@ -6,7 +6,7 @@ namespace Behaviour
  
     public class SwipeDetector : MonoBehaviour
     {
-        public float minSwipeLength = 200f;
+        public float minSwipeLength = 5f;
         Vector2 firstPressPos;
         Vector2 secondPressPos;
         Vector2 currentSwipe;
