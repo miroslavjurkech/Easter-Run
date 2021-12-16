@@ -15,6 +15,7 @@ TagManager:
   - PlayerSpine
   - KickTrigger
   - PlayerKickFoot
+  - Road
   layers:
   - Default
   - TransparentFX

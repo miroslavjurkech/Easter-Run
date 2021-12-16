@@ -42,6 +42,11 @@ public class Player : MonoBehaviour
         //Debug.Log(GetComponent<Rigidbody>().velocity);
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("Player collision: " + other.gameObject.tag);
+    }
+
     // private void OnTriggerEnter(Collider other)
     // {
     //     //spravanie zbierania vajec a pod
