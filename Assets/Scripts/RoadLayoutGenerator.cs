@@ -55,8 +55,6 @@ public class RoadLayoutGenerator
                 _road[row, column] = RoadType.Unreachable;
             }
         }
-
-        _nextRowToGenerate = 0;
     }
 
     void ClearRoad(int rowFrom )
