@@ -55,30 +55,6 @@ public class RoadSimul : MonoBehaviour
             StartCoroutine(DisposeTile(newTile));
             _nextTileSpawn.x += 5;
         }
-
-        // _nextTileSpawn.x += 5;
-        // _randZ = Random.Range(-1, 2);
-        // _nextClothesSpawn.x = _nextTileSpawn.x;
-        // _nextClothesSpawn.y = 1.2f;
-        // _nextClothesSpawn.z = 5 + _randZ;
-        // newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
-        // // newBlock = Instantiate(clothesObj, _nextClothesSpawn, clothesObj.rotation);
-        // StartCoroutine(DisposeTile(newTile));
-        // // StartCoroutine(DisposeTile(newBlock));
-        //
-        // _nextSignSpawn.x = _nextTileSpawn.x;
-        // _nextSignSpawn.y = 0.6f;
-        // _nextSignSpawn.z = 5 + _randZ;
-        // // newBlock = Instantiate(signObj, _nextSignSpawn, signObj.rotation);
-        // // StartCoroutine(DisposeTile(newBlock));
-        //
-        // _nextEggSpawn.x = _nextTileSpawn.x;
-        // _nextEggSpawn.y = 0.6f;
-        // _nextEggSpawn.z = 5 + _randZ;
-        // // newBlock = Instantiate(eggObj, _nextEggSpawn, eggObj.rotation);
-        // // StartCoroutine(DisposeTile(newBlock));
-        //
-        // _nextTileSpawn.x += 5;
         StartCoroutine(SpawnTile());
     }
 

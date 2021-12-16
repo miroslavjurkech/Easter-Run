@@ -5,29 +5,29 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerControls : MonoBehaviour
 {
-    private Transform player;
-    private Animator anim;
-    public bool isSwipeEnabled;
+    private Transform _player;
+    private Animator _anim;
+    private bool _isSwipeEnabled;
     
     void Start()
     {
-        player = GetComponent<Transform>();
-        anim = GetComponent<Animator>();
+        _player = GetComponent<Transform>();
+        _anim = GetComponent<Animator>();
         
 #if UNITY_ANDROID
-        isSwipeEnabled = true;
+        _isSwipeEnabled = true;
 #elif UNITY_IOS
-        isSwipeEnabled = true;
+        _isSwipeEnabled = true;
 #else
-        isSwipeEnabled = false;
+        _isSwipeEnabled = false;
 #endif
     }
     
     void Update()
     {
-        var pos = player.transform.position;
+        var pos = _player.transform.position;
         //Debug.Log(SwipeDetector.swipeDirection.ToString());
-        if (isSwipeEnabled)
+        if (_isSwipeEnabled)
         {
             Swipe(pos);
         }
@@ -37,9 +37,9 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void Swipe(Vector3 pos)
+    private void Swipe(Vector3 pos)
     {
-        var script = player.GetComponent<Player>();
+        var script = _player.GetComponent<Player>();
         
         switch (SwipeDetector.swipeDirection)
         {
@@ -77,7 +77,7 @@ public class PlayerControls : MonoBehaviour
                 else
                 {
                     //Jump is trigger on the playerAnimationScript
-                    anim.SetTrigger("jump");
+                    _anim.SetTrigger("jump");
                 }
                 break;
             case Behaviour.Swipe.Down:
@@ -87,18 +87,18 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    anim.SetTrigger("slide");
+                    _anim.SetTrigger("slide");
                 }
                 break;
             default:
                 break;
         }
-        player.transform.position = pos;
+        _player.transform.position = pos;
     }
-    
-    void Buttons(Vector3 pos)
+
+    private void Buttons(Vector3 pos)
     {
-        var script = player.GetComponent<Player>();
+        var script = _player.GetComponent<Player>();
         
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -137,7 +137,7 @@ public class PlayerControls : MonoBehaviour
             else
             {
                 //Jump is trigger on the playerAnimationScript
-                anim.SetTrigger("jump");
+                _anim.SetTrigger("jump");
             }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -148,9 +148,9 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
-                anim.SetTrigger("slide");
+                _anim.SetTrigger("slide");
             }
         }
-        player.transform.position = pos;
+        _player.transform.position = pos;
     }
 }
