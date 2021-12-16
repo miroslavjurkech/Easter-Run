@@ -35,10 +35,10 @@ public class FollowPlayer : MonoBehaviour
         var elapsedTime = 0f;
         while(elapsedTime < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-2f, 2f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
  
-            transform.position = new Vector3(originalPosition.x - x, originalPosition.y - y, transform.position.z);
+            transform.position = new Vector3(originalPosition.x + x, originalPosition.y + y, transform.position.z);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
