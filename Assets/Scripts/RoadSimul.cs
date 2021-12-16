@@ -26,7 +26,7 @@ public class RoadSimul : MonoBehaviour
     {
         _nextTileSpawn.x = 20;
         tileObj.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        _generator = new RoadLayoutGenerator(60, 70);
+        _generator = new RoadLayoutGenerator(30, 40);
 
         StartCoroutine(SpawnTile());
     }
@@ -60,8 +60,8 @@ public class RoadSimul : MonoBehaviour
 
     private static IEnumerator DisposeTile(Component obj)
     {
-        yield return new WaitForSeconds(20);
-        //Destroy(obj.gameObject);
+        yield return new WaitForSeconds(10);
+        // Destroy(obj.gameObject);
     }
 
     private Transform GetTransformFromType(RoadType type)
@@ -71,12 +71,15 @@ public class RoadSimul : MonoBehaviour
         switch (type)
         {
             case RoadType.Reachable:
-                r = random % 2;
+                r = random % 5;
                 switch (r)
                 {
                     case 0:
-                        return null;
                     case 1:
+                        return null;
+                    case 2:
+                    case 3:
+                    case 4:
                         return eggObj;
                 }
                 break;

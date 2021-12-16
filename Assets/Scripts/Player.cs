@@ -15,11 +15,11 @@ public class Player : MonoBehaviour
     public float startAfter;
     
     public int health;
-    public long points;
+    public int points;
 
     [SerializeField]
     private float speed;
-    
+
     public bool InFight { get; private set; }
 
     private string FightExpected { get; set; }
@@ -45,7 +45,8 @@ public class Player : MonoBehaviour
 
     public void Run()
     {
-        rigidbody.velocity = new Vector3( speed, 0, 0);
+        var points = Math.Min(this.points, 20);
+        rigidbody.velocity = new Vector3(speed + (speed*points/20), 0, 0);
     }
 
     public void Stop()
@@ -120,14 +121,18 @@ public class Player : MonoBehaviour
         return InFight && FightExpected.Equals(FightUsed);
     }
 
-    public void IncPoints(long amount = 1)
+    public void IncPoints(int amount = 1)
     {
         points += amount;
+        Run();
     }
 
-    public void DecPoints(long amount = 1)
+    public void DecPoints(int amount = 1)
     {
-        if (points >= amount) 
+        if (points >= amount)
+        {
             points -= amount;
+            Run();
+        }
     }
 }
