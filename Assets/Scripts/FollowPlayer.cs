@@ -26,7 +26,7 @@ public class FollowPlayer : MonoBehaviour
 
     public void ShakeCamera()
     {
-        StartCoroutine(RandomizeCameraPosition(1, .5f));
+        StartCoroutine(RandomizeCameraPosition(1, 1));
     }
     
     private IEnumerator RandomizeCameraPosition(float duration, float magnitude)
