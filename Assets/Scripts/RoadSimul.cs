@@ -88,8 +88,9 @@ public class RoadSimul : MonoBehaviour
                     case 6:
                     case 7:
                     case 8:
-                        if (eggsGenerated >= 150 && (eggsGenerated % 50) == 0)
+                        if ((eggsGenerated >= 150) && ((eggsGenerated % 50) == 0))
                         {
+                            eggsGenerated++;
                             return girlObj;
                         }
                         eggsGenerated++;
