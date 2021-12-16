@@ -102,7 +102,7 @@ public class PlayerControls : MonoBehaviour
                 }
                 else
                 {
-                    if (pos.z > 4)
+                    if (pos.z > 5)
                     {
                         pos.z -= 1;
                     }
@@ -160,7 +160,7 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
-                if (pos.z > 4)
+                if (pos.z > 5)
                 {
                     pos.z -= 1;
                 }
