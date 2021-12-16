@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FightTrigger : MonoBehaviour
@@ -10,5 +11,13 @@ public class FightTrigger : MonoBehaviour
         var dir = gameObject.GetComponentInParent<Enemy>().Direction;
         
         GameObject.FindWithTag("Player").GetComponent<Player>().EnterFight(dir);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("PlayerSpine"))
+            return;
+        
+        GameObject.FindWithTag("Player").GetComponent<Player>().CancelCancel();
     }
 }

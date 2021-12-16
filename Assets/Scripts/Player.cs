@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 using System.Collections;
 
@@ -36,22 +35,6 @@ public class Player : MonoBehaviour
 
         StartCoroutine("WaitForStart");
     }
-
-    private void Update()
-    {
-        //Debug.Log(GetComponent<Rigidbody>().velocity);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("Player collision: " + other.gameObject.tag);
-    }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     //spravanie zbierania vajec a pod
-    //     Destroy(other.gameObject);
-    // }
 
     private IEnumerator WaitForStart()
     {
@@ -117,6 +100,11 @@ public class Player : MonoBehaviour
         InFight = true;
     }
 
+    public void CancelCancel()
+    {
+        anim.ResetTrigger("cancel");
+    }
+
     public void LeaveFight()
     {
         FightExpected = null;
@@ -126,9 +114,9 @@ public class Player : MonoBehaviour
 
     public bool IsSuccessfulFight()
     {
-        /*Debug.Log("FIGHT");
+        Debug.Log("FIGHT");
         Debug.Log("Should be: " + FightExpected);
-        Debug.Log("Is: " + FightUsed);*/
+        Debug.Log("Is: " + FightUsed);
         return InFight && FightExpected.Equals(FightUsed);
     }
 

@@ -1,19 +1,29 @@
 using Behaviour;
 using UnityEngine;
 
+public enum SwipeDirection { Up, Down, Left, Right };
+
 [RequireComponent(typeof(Transform))]
 [RequireComponent(typeof(Animator))]
 public class PlayerControls : MonoBehaviour
 {
     private Transform _player;
+    private Player _script;
     private Animator _anim;
     private bool _isSwipeEnabled;
     
+    
+    public float minSwipeLength = 15f;
+    Vector2? firstPressPos;
+    Vector2 secondPressPos;
+    Vector2 currentSwipe;
+    
     void Start()
     {
+        _script = GetComponent<Player>();
         _player = GetComponent<Transform>();
         _anim = GetComponent<Animator>();
-        
+
 #if UNITY_ANDROID
         _isSwipeEnabled = true;
 #elif UNITY_IOS
@@ -22,31 +32,100 @@ public class PlayerControls : MonoBehaviour
         _isSwipeEnabled = false;
 #endif
     }
-    
+
     void Update()
     {
-        var pos = _player.transform.position;
-        //Debug.Log(SwipeDetector.swipeDirection.ToString());
+        var pos = _player.position;
+        
         if (_isSwipeEnabled)
         {
             Swipe(pos);
-        }
-        else
+        } else
         {
             Buttons(pos);
         }
     }
 
-    private void Swipe(Vector3 pos)
+    void Swipe(Vector3 pos)
     {
-        var script = _player.GetComponent<Player>();
-        
-        switch (SwipeDetector.swipeDirection)
+        if (Input.touches.Length > 0)
         {
-            case Behaviour.Swipe.Left:
-                if (script.InFight)
+            var t = Input.GetTouch(0);
+
+            if (t.phase == TouchPhase.Began)
+            {
+                firstPressPos = new Vector2(t.position.x, t.position.y);
+            }
+
+            if (firstPressPos != null && t.phase == TouchPhase.Moved)
+            {
+                secondPressPos = new Vector2(t.position.x, t.position.y);
+                currentSwipe = new Vector3(secondPressPos.x - firstPressPos.Value.x, secondPressPos.y - firstPressPos.Value.y);
+                /*Debug.Log("Current vector: " + currentSwipe);
+                Debug.Log("Magnituda: " + currentSwipe.magnitude);*/
+                
+                if (currentSwipe.magnitude < minSwipeLength) {
+                    return;
+                }
+                
+                currentSwipe.Normalize();
+                
+                //Debug.Log("Current normalized: " + currentSwipe);
+                
+                // Swipe up
+                if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Up);
+                    // Swipe down
+                } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Down);
+                    // Swipe right
+                } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Right);
+                    // Swipe left 
+                } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Left);
+                }
+
+                firstPressPos = null;
+            }
+
+            /*if (t.phase == TouchPhase.Ended) {
+                secondPressPos = new Vector2(t.position.x, t.position.y);
+                currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+           
+                // Make sure it was a legit swipe, not a tap
+                if (currentSwipe.magnitude < minSwipeLength) {
+                    return;
+                }
+           
+                currentSwipe.Normalize();
+ 
+                // Swipe up
+                if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Up);
+                    // Swipe down
+                } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Down);
+                    // Swipe right
+                } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Right);
+                    // Swipe left 
+                } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                    OnSwipe(pos, SwipeDirection.Left);
+                }
+            }*/
+        }
+    }
+
+    void OnSwipe(Vector3 pos, SwipeDirection dir)
+    {
+        switch (dir)
+        {
+            case SwipeDirection.Left:
+                if (_script.InFight)
                 {
-                    script.FightUsed = "LEFT";
+                    //FIXME je nachuja (asi) kamera a na pohyb je to obratene
+                    _script.FightUsed = "RIGHT";
                 }
                 else
                 {
@@ -56,10 +135,11 @@ public class PlayerControls : MonoBehaviour
                     }
                 }
                 break;
-            case Behaviour.Swipe.Right:
-                if (script.InFight)
+            case SwipeDirection.Right:
+                if (_script.InFight)
                 {
-                    script.FightUsed = "RIGHT";
+                    //FIXME je nachuja (asi) kamera a na pohyb je to obratene
+                    _script.FightUsed = "LEFT";
                 }
                 else
                 {
@@ -69,10 +149,11 @@ public class PlayerControls : MonoBehaviour
                     }
                 }
                 break;
-            case Behaviour.Swipe.Up:
-                if (script.InFight)
+            case SwipeDirection.Up:
+                if (_script.InFight)
                 {
-                    script.FightUsed = "UP";
+                    Debug.Log("Fightim UP");
+                    _script.FightUsed = "UP";
                 }
                 else
                 {
@@ -80,31 +161,29 @@ public class PlayerControls : MonoBehaviour
                     _anim.SetTrigger("jump");
                 }
                 break;
-            case Behaviour.Swipe.Down:
-                if (script.InFight)
+            case SwipeDirection.Down:
+                if (_script.InFight)
                 {
-                    script.FightUsed = "DOWN";
+                    Debug.Log("Fightim DOWN");
+                    _script.FightUsed = "DOWN";
                 }
                 else
                 {
                     _anim.SetTrigger("slide");
                 }
                 break;
-            default:
-                break;
         }
+        
         _player.transform.position = pos;
     }
 
     private void Buttons(Vector3 pos)
     {
-        var script = _player.GetComponent<Player>();
-        
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (script.InFight)
+            if (_script.InFight)
             {
-                script.FightUsed = "RIGHT";
+                _script.FightUsed = "RIGHT";
             }
             else
             {
@@ -116,9 +195,9 @@ public class PlayerControls : MonoBehaviour
         } 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (script.InFight)
+            if (_script.InFight)
             {
-                script.FightUsed = "LEFT";
+                _script.FightUsed = "LEFT";
             }
             else
             {
@@ -130,9 +209,9 @@ public class PlayerControls : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (script.InFight)
+            if (_script.InFight)
             {
-                script.FightUsed = "UP";
+                _script.FightUsed = "UP";
             }
             else
             {
@@ -142,15 +221,16 @@ public class PlayerControls : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (script.InFight)
+            if (_script.InFight)
             {
-                script.FightUsed = "DOWN";
+                _script.FightUsed = "DOWN";
             }
             else
             {
                 _anim.SetTrigger("slide");
             }
         }
+        
         _player.transform.position = pos;
     }
 }
