@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public int speedUpUntilPoints = 40;
+
+    public float maxSpeed = 8;
+
     public bool InFight { get; private set; }
 
     private string FightExpected { get; set; }
@@ -51,8 +55,8 @@ public class Player : MonoBehaviour
 
     public void Run()
     {
-        var points = Math.Min(this.points, 20);
-        rigidbody.velocity = new Vector3(speed + (speed*points/20), 0, 0);
+        var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
+        rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed)*actPointsInc/speedUpUntilPoints), 0, 0);
     }
 
     public void Stop()
