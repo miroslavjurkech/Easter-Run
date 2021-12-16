@@ -41,13 +41,13 @@ public class RoadSimul : MonoBehaviour
         {
             var barriers = _generator.GetNextRow();
             var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
-            foreach (var (barrier, i) in barriers.Select((type, i) => (type, i)))
+            foreach (var (barrier, i) in barriers.Select((type, i) => (type, i - 1)))
             {
                 var nextObj = GetTransformFromType(barrier);
                 if (nextObj != null)
                 {
                     var blockSpawn = _nextTileSpawn;
-                    blockSpawn.z = 5 + i - 1;
+                    blockSpawn.z = 5 + i;
                     blockSpawn.y += nextObj.localPosition.y;
                     nextObj.localScale *= scale;
                     var o = Instantiate(nextObj, blockSpawn, nextObj.rotation, newTile);
@@ -83,7 +83,8 @@ public class RoadSimul : MonoBehaviour
                     case 3:
                         return bottleObj;
                     case 4:
-                        return sandwichObj;
+                        var player = GameObject.FindWithTag("Player").GetComponent<Player>();
+                        return player.health != player.maxHealth ? sandwichObj : null;
                     case 5:
                     case 6:
                     case 7:
