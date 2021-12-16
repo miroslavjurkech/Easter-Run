@@ -29,7 +29,7 @@ public class RoadSimul : MonoBehaviour
 
     void Start()
     {
-        _nextTileSpawn.x = 20;
+        _nextTileSpawn.x = 10;
         tileObj.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         _generator = new RoadLayoutGenerator(30, 40);
 
