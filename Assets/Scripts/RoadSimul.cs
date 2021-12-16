@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoadSimul : MonoBehaviour
 {
+    public Transform tilePool;
     public Transform tileObj;
     private Vector3 _nextTileSpawn;
 
@@ -40,7 +41,8 @@ public class RoadSimul : MonoBehaviour
         foreach (var _ in Enumerable.Range(0, 10))
         {
             var barriers = _generator.GetNextRow();
-            var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation);
+            var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation, tilePool);
+            var objectsParent = newTile.Find("SpawnObjects");
             foreach (var (barrier, i) in barriers.Select((type, i) => (type, i - 1)))
             {
                 var nextObj = GetTransformFromType(barrier);
@@ -50,21 +52,16 @@ public class RoadSimul : MonoBehaviour
                     blockSpawn.z = 5 + i;
                     blockSpawn.y += nextObj.localPosition.y;
                     nextObj.localScale *= scale;
-                    var o = Instantiate(nextObj, blockSpawn, nextObj.rotation, newTile);
+                    var o = Instantiate(nextObj, blockSpawn, nextObj.rotation, objectsParent);
                     nextObj.localScale /= scale;
                 }
             }
-            StartCoroutine(DisposeTile(newTile));
             _nextTileSpawn.x += 5;
         }
         StartCoroutine(SpawnTile());
     }
 
-    private static IEnumerator DisposeTile(Component obj)
-    {
-        yield return new WaitForSeconds(10);
-        // Destroy(obj.gameObject);
-    }
+
 
     private Transform GetTransformFromType(RoadType type)
     {

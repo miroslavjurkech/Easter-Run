@@ -1,5 +1,6 @@
-using Behaviour;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum SwipeDirection { Up, Down, Left, Right };
 
@@ -11,12 +12,14 @@ public class PlayerControls : MonoBehaviour
     private Player _script;
     private Animator _anim;
     private bool _isSwipeEnabled;
-    
+
+    [FormerlySerializedAs("Camera")] 
+    public Camera mainCamera;
     
     public float minSwipeLength = 15f;
-    Vector2? firstPressPos;
-    Vector2 secondPressPos;
-    Vector2 currentSwipe;
+    private Vector2? _firstPressPos;
+    private Vector2 _secondPressPos;
+    private Vector2 _currentSwipe;
     
     void Start()
     {
@@ -54,66 +57,36 @@ public class PlayerControls : MonoBehaviour
 
             if (t.phase == TouchPhase.Began)
             {
-                firstPressPos = new Vector2(t.position.x, t.position.y);
+                _firstPressPos = new Vector2(t.position.x, t.position.y);
             }
 
-            if (firstPressPos != null && t.phase == TouchPhase.Moved)
+            if (_firstPressPos != null && t.phase == TouchPhase.Moved)
             {
-                secondPressPos = new Vector2(t.position.x, t.position.y);
-                currentSwipe = new Vector3(secondPressPos.x - firstPressPos.Value.x, secondPressPos.y - firstPressPos.Value.y);
-                /*Debug.Log("Current vector: " + currentSwipe);
-                Debug.Log("Magnituda: " + currentSwipe.magnitude);*/
+                _secondPressPos = new Vector2(t.position.x, t.position.y);
+                _currentSwipe = new Vector3(_secondPressPos.x - _firstPressPos.Value.x, _secondPressPos.y - _firstPressPos.Value.y);
                 
-                if (currentSwipe.magnitude < minSwipeLength) {
+                if (_currentSwipe.magnitude < minSwipeLength) {
                     return;
                 }
                 
-                currentSwipe.Normalize();
-                
-                //Debug.Log("Current normalized: " + currentSwipe);
+                _currentSwipe.Normalize();
                 
                 // Swipe up
-                if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                if (_currentSwipe.y > 0 &&  _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
                     OnSwipe(pos, SwipeDirection.Up);
                     // Swipe down
-                } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
+                } else if (_currentSwipe.y < 0 && _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
                     OnSwipe(pos, SwipeDirection.Down);
                     // Swipe right
-                } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                } else if (_currentSwipe.x < 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f) {
                     OnSwipe(pos, SwipeDirection.Right);
                     // Swipe left 
-                } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+                } else if (_currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f) {
                     OnSwipe(pos, SwipeDirection.Left);
                 }
 
-                firstPressPos = null;
+                _firstPressPos = null;
             }
-
-            /*if (t.phase == TouchPhase.Ended) {
-                secondPressPos = new Vector2(t.position.x, t.position.y);
-                currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-           
-                // Make sure it was a legit swipe, not a tap
-                if (currentSwipe.magnitude < minSwipeLength) {
-                    return;
-                }
-           
-                currentSwipe.Normalize();
- 
-                // Swipe up
-                if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
-                    OnSwipe(pos, SwipeDirection.Up);
-                    // Swipe down
-                } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
-                    OnSwipe(pos, SwipeDirection.Down);
-                    // Swipe right
-                } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                    OnSwipe(pos, SwipeDirection.Right);
-                    // Swipe left 
-                } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                    OnSwipe(pos, SwipeDirection.Left);
-                }
-            }*/
         }
     }
 
@@ -229,8 +202,22 @@ public class PlayerControls : MonoBehaviour
             {
                 _anim.SetTrigger("slide");
             }
+        } else if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            StartCoroutine(FlashScreen());
         }
         
         _player.transform.position = pos;
+    }
+
+    private IEnumerator FlashScreen()
+    {
+        Debug.Log("Called");
+        mainCamera.clearFlags = CameraClearFlags.SolidColor;
+        mainCamera.backgroundColor = Color.black;
+        mainCamera.cullingMask = 0;
+        yield return new WaitForSeconds(1f);
+        mainCamera.clearFlags = CameraClearFlags.Skybox;
+        mainCamera.cullingMask = 1;
     }
 }
