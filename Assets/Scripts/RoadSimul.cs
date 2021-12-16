@@ -20,6 +20,8 @@ public class RoadSimul : MonoBehaviour
 
     private RoadLayoutGenerator _generator;
 
+    [Range(0.2f, 5)] public float scale = 1;
+
     void Start()
     {
         _nextTileSpawn.x = 20;
@@ -44,15 +46,15 @@ public class RoadSimul : MonoBehaviour
                 {
                     var blockSpawn = _nextTileSpawn;
                     blockSpawn.z = 5 + i - 1;
-                    blockSpawn.y = 0.7f;
-                    Instantiate(nextObj, blockSpawn, nextObj.rotation, newTile);
+                    blockSpawn.y += nextObj.localPosition.y;
+                    nextObj.localScale *= scale;
+                    var o = Instantiate(nextObj, blockSpawn, nextObj.rotation, newTile);
+                    nextObj.localScale /= scale;
                 }
             }
             StartCoroutine(DisposeTile(newTile));
             _nextTileSpawn.x += 5;
         }
-
-
 
         // _nextTileSpawn.x += 5;
         // _randZ = Random.Range(-1, 2);

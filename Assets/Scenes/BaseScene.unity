@@ -1417,6 +1417,7 @@ MonoBehaviour:
     type: 3}
   solidRailObj: {fileID: 894433634718093336, guid: 68a5c4086f85feaa08e73af8a4ab9980,
     type: 3}
+  scale: 2
 --- !u!4 &1714750827
 Transform:
   m_ObjectHideFlags: 0
