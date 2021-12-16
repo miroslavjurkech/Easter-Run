@@ -25,6 +25,8 @@ public class RoadSimul : MonoBehaviour
 
     [Range(0.2f, 5)] public float scale = 1;
 
+    private long eggsGenerated = 0;
+
     void Start()
     {
         _nextTileSpawn.x = 20;
@@ -86,6 +88,11 @@ public class RoadSimul : MonoBehaviour
                     case 6:
                     case 7:
                     case 8:
+                        if (eggsGenerated >= 150 && (eggsGenerated % 50) == 0)
+                        {
+                            return girlObj;
+                        }
+                        eggsGenerated++;
                         return eggObj;
                 }
                 break;
