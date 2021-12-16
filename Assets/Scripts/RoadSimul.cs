@@ -115,16 +115,8 @@ public class RoadSimul : MonoBehaviour
                         return solidRailObj;
                 }
                 break;
-            case RoadType.theWhiper:
-                r = random % 2;
-                switch (r)
-                {
-                    case 0:
-                        return enemyObj;
-                    case 1:
-                        return girlObj;
-                }
-                break;
+            case RoadType.TheWhiper:
+                return enemyObj;
         }
         return null;
     }
