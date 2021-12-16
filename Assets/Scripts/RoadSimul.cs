@@ -82,7 +82,7 @@ public class RoadSimul : MonoBehaviour
                     case 3:
                         return bottleObj;
                     case 4:
-                        return eggsGenerated % 20 == 0 ? sandwichObj : null;
+                        return eggsGenerated % 5 == 0 ? sandwichObj : null;
                     case 5:
                     case 6:
                     case 7:
