@@ -1572,7 +1572,8 @@ MonoBehaviour:
     type: 3}
   bottleObj: {fileID: 2085462633836831785, guid: 2294043ec28a1d44197b1f62b4bde490,
     type: 3}
-  sandwichObj: {fileID: 0}
+  sandwichObj: {fileID: 4554739439305560, guid: c1088612ebac05d4a958da56ca606447,
+    type: 3}
   scale: 2
 --- !u!4 &1714750827
 Transform:

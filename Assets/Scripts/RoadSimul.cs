@@ -38,7 +38,7 @@ public class RoadSimul : MonoBehaviour
     private IEnumerator SpawnTile()
     {
         yield return new WaitForSeconds(1);
-        foreach (var _ in Enumerable.Range(0, 10))
+        foreach (var _ in Enumerable.Range(0, 3))
         {
             var barriers = _generator.GetNextRow();
             var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation, tilePool);
