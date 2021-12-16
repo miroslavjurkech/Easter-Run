@@ -17,6 +17,8 @@ public class RoadSimul : MonoBehaviour
     public Transform lobollyObj;
     public Transform pillarObj;
     public Transform solidRailObj;
+    public Transform bottleObj;
+    public Transform sandwichObj;
 
     private RoadLayoutGenerator _generator;
 
@@ -71,15 +73,21 @@ public class RoadSimul : MonoBehaviour
         switch (type)
         {
             case RoadType.Reachable:
-                r = random % 5;
+                r = random % 9;
                 switch (r)
                 {
                     case 0:
                     case 1:
-                        return null;
                     case 2:
+                        return null;
                     case 3:
+                        return bottleObj;
                     case 4:
+                        return sandwichObj;
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
                         return eggObj;
                 }
                 break;
