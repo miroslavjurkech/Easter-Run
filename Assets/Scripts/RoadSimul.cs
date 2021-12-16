@@ -82,8 +82,7 @@ public class RoadSimul : MonoBehaviour
                     case 3:
                         return bottleObj;
                     case 4:
-                        var player = GameObject.FindWithTag("Player").GetComponent<Player>();
-                        return player.health != player.maxHealth ? sandwichObj : null;
+                         return sandwichObj;
                     case 5:
                     case 6:
                     case 7:
