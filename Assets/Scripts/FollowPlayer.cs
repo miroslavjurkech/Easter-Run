@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
@@ -23,5 +22,25 @@ public class FollowPlayer : MonoBehaviour
     {
         _cameraPosition = player.position + _initialOffset;
         transform.position = _cameraPosition;
+    }
+
+    public void ShakeCamera()
+    {
+        StartCoroutine(RandomizeCameraPosition(1, .5f));
+    }
+    
+    private IEnumerator RandomizeCameraPosition(float duration, float magnitude)
+    {
+        var originalPosition = transform.position;
+        var elapsedTime = 0f;
+        while(elapsedTime < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+ 
+            transform.position = new Vector3(originalPosition.x - x, originalPosition.y - y, transform.position.z);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }

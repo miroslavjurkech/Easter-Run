@@ -16,6 +16,7 @@ public class Boost : MonoBehaviour
         if (!other.gameObject.tag.Equals("Player")) return;
         
         var player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        var camera = GameObject.FindWithTag("MainCamera").GetComponent<FollowPlayer>();
 
         switch (type)
         {
@@ -23,7 +24,7 @@ public class Boost : MonoBehaviour
                 player.IncHealth();
                 break;
             case BoostType.Bottle:
-                // TODO
+                camera.ShakeCamera();
                 break;
         }
         
