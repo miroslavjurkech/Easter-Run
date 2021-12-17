@@ -24,6 +24,7 @@ public class DrunkCamera : MonoBehaviour
     private TimeSpan remainingTime = TimeSpan.Zero;
     private DateTime lastUpdate;
     private AudioSource song;
+    [SerializeField] private int fadeOutTime = 5;
 
     private void Awake() {
         song = GetComponentInChildren<AudioSource>();
@@ -39,7 +40,13 @@ public class DrunkCamera : MonoBehaviour
         lastUpdate = now;
 
         remainingTime -= updateTime;
-        if (remainingTime <= TimeSpan.Zero)
+        if (remainingTime > TimeSpan.Zero)
+        {
+            double volume = (double)remainingTime.Ticks / (fadeOutTime * TimeSpan.TicksPerSecond);
+            if (song != null)
+                song.volume = (volume > 1.0) ? 1.0f : (float)volume;
+        }
+        else
         {
             remainingTime = TimeSpan.Zero;
             if (song != null)
