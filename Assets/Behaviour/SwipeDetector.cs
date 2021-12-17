@@ -10,7 +10,7 @@ namespace Behaviour
     {
         public float minSwipeLength = 5f;
         private Vector2? _firstPressPos;
-        private Vector2 _currentSwipe;
+//        private Vector2 _currentSwipe;
         
         private bool _isSwipeEnabled;
 
@@ -51,18 +51,27 @@ namespace Behaviour
 
                 if (_firstPressPos != null && t.phase == TouchPhase.Moved)
                 {
-                    _currentSwipe = new Vector2(t.position.x - _firstPressPos.Value.x, t.position.y - _firstPressPos.Value.y);
+                    var xDiff = t.position.x - _firstPressPos.Value.x;
+                    var yDiff = t.position.y - _firstPressPos.Value.y;
+                    
+                    var horiz = Mathf.Abs(xDiff);
+                    var vertic = Mathf.Abs(yDiff);
+                    
+                    //_currentSwipe = new Vector2(t.position.x - _firstPressPos.Value.x, t.position.y - _firstPressPos.Value.y);
                 
-                    if (_currentSwipe.magnitude < minSwipeLength) {
+                    /*if (_currentSwipe.magnitude < minSwipeLength) {
+                        return;
+                    }*/
+
+                    if (vertic < minSwipeLength && horiz < minSwipeLength)
+                    {
                         return;
                     }
                     
-                    Debug.Log("------------Magnituda " + _currentSwipe.magnitude);
-
-                    _currentSwipe.Normalize();
+                    //_currentSwipe.Normalize();
                 
                     // Swipe up
-                    if (_currentSwipe.y > 0 &&  _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
+                    /*if (_currentSwipe.y > 0 &&  _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
                         OnSwipe(Swipe.Up);
                         // Swipe down
                     } else if (_currentSwipe.y < 0 && _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
@@ -73,6 +82,15 @@ namespace Behaviour
                         // Swipe left 
                     } else if (_currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f) {
                         OnSwipe(Swipe.Right);
+                    }*/
+
+                    if (vertic > horiz)
+                    {
+                        OnSwipe(yDiff > 0 ? Swipe.Up : Swipe.Down);
+                    }
+                    else
+                    {
+                        OnSwipe(xDiff > 0 ? Swipe.Right : Swipe.Left);
                     }
 
                     _firstPressPos = null;

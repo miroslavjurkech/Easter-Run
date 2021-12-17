@@ -597,7 +597,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: In air
-  m_Speed: 1.2
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3207504158007013826}
@@ -1162,7 +1162,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Slide
-  m_Speed: 1.5
+  m_Speed: 1.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1222634951429527571}
