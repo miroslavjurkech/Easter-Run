@@ -398,9 +398,9 @@ GameObject:
   m_Component:
   - component: {fileID: 257389640621245273}
   - component: {fileID: 1642202060252096905}
-  - component: {fileID: -3909262242382619639}
   - component: {fileID: -6424293441243943818}
   - component: {fileID: 2587525406367455794}
+  - component: {fileID: 2575202433386094458}
   m_Layer: 0
   m_Name: GirlWhipping
   m_TagString: Girl
@@ -451,20 +451,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &-3909262242382619639
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637749932004481507}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!82 &-6424293441243943818
 AudioSource:
   m_ObjectHideFlags: 0
@@ -476,7 +462,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ea1a34d44740691888b643f5b59f6cdd, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
@@ -573,6 +559,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea3e8bc23a326c60acdd3c0e963f2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2575202433386094458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637749932004481507}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.4}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &760393345040345908
 GameObject:
   m_ObjectHideFlags: 0

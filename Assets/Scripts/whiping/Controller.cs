@@ -36,17 +36,17 @@ namespace whiping
             if (bar.fillAmount <= 0)
             {
                 //TODO: loose
-                StopAllCoroutines();
-                SceneManager.LoadScene("Scenes/BaseScene");
+                //StopAllCoroutines();
+                //SceneManager.LoadScene("Scenes/BaseScene");
             } else if (bar.fillAmount >= 1)
             {
                 //TODO: win
-                StopAllCoroutines();
+                //StopAllCoroutines();
                 
                 var state = GameState.GetInstance();
                 state.SaveState(state.GetEggs() + 5, state.GetLives());
                 
-                SceneManager.LoadScene("Scenes/BaseScene");
+                //SceneManager.LoadScene("Scenes/BaseScene");
             }
             
             string dir;

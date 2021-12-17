@@ -1219,7 +1219,11 @@ MonoBehaviour:
   clothesObj: {fileID: 181844332102184342, guid: e2ac9daae0fa491428c63de4aefb420b,
     type: 3}
   signObj: {fileID: 3291208091655519858, guid: fc9a58be9e46dcceabd96504bdcccd23, type: 3}
-  eggObj: {fileID: 3795819845118563252, guid: 16908ec2bc79e6bdd8bcd2c6ab4f27ea, type: 3}
+  eggObjs:
+  - {fileID: 3795819845118563252, guid: 16908ec2bc79e6bdd8bcd2c6ab4f27ea, type: 3}
+  - {fileID: 3795819845118563252, guid: 9da5d2e042175ef048529ce7fe133ba1, type: 3}
+  - {fileID: 3795819845118563252, guid: 37f37ec6afaced881a315afea1aa00be, type: 3}
+  - {fileID: 3795819845118563252, guid: 2e61c303bd5d9a38eb6ecf448c9900ef, type: 3}
   bushObj: {fileID: 882451370741781260, guid: 4ee301ce18556eddb8ce8a2a582e7ff5, type: 3}
   enemyObj: {fileID: 3124111561546150533, guid: 2781b746ab62c8cc682e312d0f573b7a,
     type: 3}

@@ -484,6 +484,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6424293441243943818, guid: 801ea836a35a55bc485984e21aeb9b15,
+        type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 257389640621245273, guid: 801ea836a35a55bc485984e21aeb9b15,
         type: 3}
       propertyPath: m_RootOrder
@@ -626,6 +639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671252592865620589, guid: 42bf3cca8fd5eaa859af7a6fe4bb269e,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4949881321204424933, guid: 42bf3cca8fd5eaa859af7a6fe4bb269e,
         type: 3}

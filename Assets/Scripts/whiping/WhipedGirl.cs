@@ -15,6 +15,7 @@ namespace whiping
         }
 
         private void OnCollisionEnter(Collision other) {
+            Debug.Log("Should take damage");
             animator.SetTrigger("takeDamage");
             audioSource.Play();
         }
