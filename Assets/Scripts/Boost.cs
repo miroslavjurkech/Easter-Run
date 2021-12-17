@@ -24,7 +24,6 @@ public class Boost : MonoBehaviour
                 player.IncHealth();
                 break;
             case BoostType.Bottle:
-                camera.ShakeCamera();
                 break;
         }
         
