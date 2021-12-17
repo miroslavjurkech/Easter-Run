@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class RoadSimul : MonoBehaviour
@@ -29,7 +30,7 @@ public class RoadSimul : MonoBehaviour
 
     [Range(0.2f, 5)] public float scale = 1;
 
-    private long eggsGenerated = 0;
+    private int eggsGenerated = 0;
 
     private void Awake() {
         if ( eggObjs.Length == 0 )
@@ -44,8 +45,7 @@ public class RoadSimul : MonoBehaviour
 
         StartCoroutine(SpawnTile());
     }
-
-    //TODO not completed yet
+    
     private IEnumerator SpawnTile()
     {
         yield return new WaitForSeconds(1);
@@ -72,8 +72,6 @@ public class RoadSimul : MonoBehaviour
         StartCoroutine(SpawnTile());
     }
 
-
-
     private Transform GetTransformFromType(RoadType type)
     {
         var random = Random.Range(0, 71);
@@ -96,12 +94,12 @@ public class RoadSimul : MonoBehaviour
                     case 6:
                     case 7:
                     case 8:
-                        if ((eggsGenerated % 50) == 0)
+                        if ((eggsGenerated % 50) == 0 && (eggsGenerated > 0))
                         {
-                            eggsGenerated++;
+                            Interlocked.Increment(ref eggsGenerated);
                             return girlObj;
                         }
-                        eggsGenerated++;
+                        Interlocked.Increment(ref eggsGenerated);
                         int variantType = Random.Range(0,eggObjs.Length);
                         return eggObjs[variantType];
                 }
