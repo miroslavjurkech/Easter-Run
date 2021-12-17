@@ -220,8 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a9a4d8900245c2a06ed3dbdace514d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSwipeLength: 200
-  isNachujaKamera: 0
+  minSwipeLength: 5
 --- !u!1 &931449758
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,18 +488,10 @@ PrefabInstance:
       propertyPath: Mute
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 257389640621245273, guid: 801ea836a35a55bc485984e21aeb9b15,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 257389640621245273, guid: 801ea836a35a55bc485984e21aeb9b15,
         type: 3}
@@ -714,6 +705,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 430407945348501844, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6251099805596741145, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72,
         type: 3}
       propertyPath: m_Name
@@ -827,11 +823,6 @@ PrefabInstance:
     - target: {fileID: 6251099805596741149, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6251099805794671969, guid: 1eb61f7d2c6e1661484fea5e8bc7bb72,
-        type: 3}
-      propertyPath: isSwipeEnabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

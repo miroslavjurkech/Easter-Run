@@ -9,18 +9,35 @@ namespace Behaviour
     public class SwipeDetector : MonoBehaviour
     {
         public float minSwipeLength = 5f;
-        Vector2 firstPressPos;
-        Vector2 secondPressPos;
-        Vector2 currentSwipe;
+        private Vector2? _firstPressPos;
+        private Vector2 _currentSwipe;
+        
+        private bool _isSwipeEnabled;
 
-        public bool isNachujaKamera;
+        public delegate void DoSwipe(Swipe dir);
+        public static event DoSwipe OnSwipe;
 
-        public static Swipe swipeDirection;
-        public static event Action<Swipe> OnSwipe = delegate { };
- 
+        private void Start()
+        {
+#if UNITY_ANDROID
+        _isSwipeEnabled = true;
+#elif UNITY_IOS
+        _isSwipeEnabled = true;
+#else
+            _isSwipeEnabled = false;
+#endif
+        }
+
         void Update()
         {
-            DetectSwipe();
+            if (_isSwipeEnabled)
+            {
+                DetectSwipe();
+            }
+            else
+            { 
+                Buttons();
+            }
         }
 
         private void DetectSwipe ()
@@ -29,57 +46,60 @@ namespace Behaviour
                 var t = Input.GetTouch(0);
  
                 if (t.phase == TouchPhase.Began) {
-                    firstPressPos = new Vector2(t.position.x, t.position.y);
+                    _firstPressPos = new Vector2(t.position.x, t.position.y);
                 }
 
-                if (t.phase == TouchPhase.Ended) {
-                    secondPressPos = new Vector2(t.position.x, t.position.y);
-                    currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-           
-                    // Make sure it was a legit swipe, not a tap
-                    if (currentSwipe.magnitude < minSwipeLength) {
-                        swipeDirection = Swipe.None;
+                if (_firstPressPos != null && t.phase == TouchPhase.Moved)
+                {
+                    _currentSwipe = new Vector2(t.position.x - _firstPressPos.Value.x, t.position.y - _firstPressPos.Value.y);
+                
+                    if (_currentSwipe.magnitude < minSwipeLength) {
                         return;
                     }
-           
-                    currentSwipe.Normalize();
- 
+                    
+                    Debug.Log("------------Magnituda " + _currentSwipe.magnitude);
+
+                    _currentSwipe.Normalize();
+                
                     // Swipe up
-                    if (currentSwipe.y > 0 &&  currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
-                        swipeDirection = Swipe.Up;
+                    if (_currentSwipe.y > 0 &&  _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
                         OnSwipe(Swipe.Up);
                         // Swipe down
-                    } else if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f) {
-                        swipeDirection = Swipe.Down;
+                    } else if (_currentSwipe.y < 0 && _currentSwipe.x > -0.5f && _currentSwipe.x < 0.5f) {
                         OnSwipe(Swipe.Down);
                         // Swipe right
-                    } else if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                        if (isNachujaKamera)
-                        {
-                            swipeDirection = Swipe.Right;
-                            OnSwipe(Swipe.Right);
-                        }
-                        else
-                        {
-                            swipeDirection = Swipe.Left;
-                            OnSwipe(Swipe.Left);
-                        }
+                    } else if (_currentSwipe.x < 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f) {
+                        OnSwipe(Swipe.Left);
                         // Swipe left 
-                    } else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-                        if (isNachujaKamera)
-                        {
-                            swipeDirection = Swipe.Left;
-                            OnSwipe(Swipe.Left);
-                        }
-                        else
-                        {
-                            swipeDirection = Swipe.Right;
-                            OnSwipe(Swipe.Right);
-                        }
+                    } else if (_currentSwipe.x > 0 && _currentSwipe.y > -0.5f && _currentSwipe.y < 0.5f) {
+                        OnSwipe(Swipe.Right);
                     }
+
+                    _firstPressPos = null;
                 }
-            } else {
-                swipeDirection = Swipe.None;
+            }
+        }
+        
+        private void Buttons()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                OnSwipe(Swipe.Up);
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                OnSwipe(Swipe.Down);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                OnSwipe(Swipe.Left);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                OnSwipe(Swipe.Right);
             }
         }
     }

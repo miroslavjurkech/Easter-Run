@@ -1,4 +1,5 @@
 
+using Behaviour;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,16 +18,16 @@ public class EnemyUITrigger : MonoBehaviour
 
         switch(gameObject.GetComponentInParent<Enemy>().Direction)
         {
-            case "UP":
+            case Swipe.Up:
                 up.gameObject.SetActive(true);
                 break;
-            case "DOWN":
+            case Swipe.Down:
                 down.gameObject.SetActive(true);
                 break;
-            case "LEFT":
+            case Swipe.Left:
                 left.gameObject.SetActive(true);
                 break;
-            case "RIGHT":
+            case Swipe.Right:
                 right.gameObject.SetActive(true);
                 break;
         }

@@ -1,72 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Behaviour;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace whiping
 {
     public class Controller : MonoBehaviour
     {
+        public int startingWhippingReward = 5;
+        public int rewardMultiplier = 10;
+        public float startingBarAmount = 0.3f;
+
+        public GameObject endText;
         public GameObject up;
         public GameObject down;
         public GameObject right;
         public GameObject left;
         public Transform arrowParent;
         public Image bar;
-        public bool isSwipeEnabled;
 
         private int _missed;
         private int _boost;
-        
-        private Queue<string> directions = new Queue<string>();
+        private bool _ended;
+
+        private Queue<Swipe> directions = new Queue<Swipe>();
         private Queue<bool> statuses = new Queue<bool>();
 
         // Start is called before the first frame update
         void Start()
         {
-            bar.fillAmount = 0.3f;
+            SwipeDetector.OnSwipe += OnSwipe;
+
+            bar.fillAmount = startingBarAmount;
+
             StartCoroutine(SpawnArrow());
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (_ended)
+                return;
+
             if (bar.fillAmount <= 0)
             {
-                //TODO: loose
-                //StopAllCoroutines();
-                //SceneManager.LoadScene("Scenes/BaseScene");
-            } else if (bar.fillAmount >= 1)
-            {
-                //TODO: win
-                //StopAllCoroutines();
-                
-                var state = GameState.GetInstance();
-                state.SaveState(state.GetEggs() + 5, state.GetLives());
-                
-                //SceneManager.LoadScene("Scenes/BaseScene");
+                _ended = true;
+                StartCoroutine(EndWhipping(false));
             }
-            
-            string dir;
-            
-            dir = isSwipeEnabled ? Swipe() : Buttons();
-
-            if (dir == null || directions.Count <= 0) return;
-            
-            bool status = dir.Equals(directions.Dequeue());
-
-            if (status)
+            else if (bar.fillAmount >= 1)
             {
-                Hit();
+                _ended = true;
+                StartCoroutine(EndWhipping(true));
             }
-            else
-            {
-                Missed();
-            }
-            
-            statuses.Enqueue(status);
+        }
+        
+        void OnDestroy(){
+            SwipeDetector.OnSwipe -= OnSwipe;
         }
 
         private void Missed()
@@ -94,45 +87,63 @@ namespace whiping
             }
         }
 
-        string Swipe()
+        void OnSwipe(Swipe dir)
         {
-            switch (SwipeDetector.swipeDirection)
+            if (Swipe.None.Equals(dir) || directions.Count <= 0) return;
+
+            var daco = directions.Dequeue();
+            
+            Debug.Log("Ocakavam: " + daco);
+            Debug.Log("Mam: " + dir);
+            bool status = dir.Equals(daco);
+
+            if (status)
             {
-                case Behaviour.Swipe.Left:
-                    return "LEFT";
-                case Behaviour.Swipe.Right:
-                    return "RIGHT";
-                case Behaviour.Swipe.Up:
-                    return "UP";
-                case Behaviour.Swipe.Down:
-                    return "DOWN";
+                Hit();
+            }
+            else
+            {
+                Missed();
             }
 
-            return null;
+            statuses.Enqueue(status);
         }
 
-        string Buttons()
+        private IEnumerator EndWhipping(bool win)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            StopCoroutine(SpawnArrow());
+
+            string text = "You lost :(";
+            Color color = Color.red;
+
+            if (win)
             {
-                return "RIGHT";
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                return "LEFT";
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                return "UP";
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                return "DOWN";
+                GameState state = GameState.GetInstance();
+                var prize = startingWhippingReward + rewardMultiplier * state.GetWhippingNumber();
+
+                if (_missed > 0 && _missed <= 3)
+                {
+                    prize = (prize * 4) / 5;
+                }
+                else if (_missed > 3)
+                {
+                    prize = (prize * 3) / 5;
+                }
+
+                state.WhippingWin(prize);
+
+                text = "You won :) +" + prize + "p";
+                color = Color.green;
             }
 
-            return null;
+            endText.GetComponentInChildren<Text>().text = text;
+            endText.GetComponent<Image>().color = color;
+            endText.SetActive(true);
+
+            yield return new WaitForSeconds(1);
+
+            SceneManager.LoadScene("Scenes/BaseScene");
         }
-
 
         private IEnumerator SpawnArrow()
         {
@@ -161,7 +172,7 @@ namespace whiping
 
         private void OnTriggerEnter(Collider other)
         {
-            string dir = other.gameObject.GetComponent<Arrows>().direction;
+            var dir = other.gameObject.GetComponent<Arrows>().direction;
 
             directions.Enqueue(dir);
             gameObject.GetComponent<Image>().color = Color.yellow;
@@ -174,7 +185,8 @@ namespace whiping
                 directions.Dequeue();
                 Missed();
             }
-            else {
+            else
+            {
                 statuses.Dequeue();
             }
         }

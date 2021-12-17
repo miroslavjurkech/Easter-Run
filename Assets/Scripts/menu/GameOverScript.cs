@@ -17,6 +17,7 @@ namespace menu
 
             startBtn.onClick.AddListener(() =>
             {
+                GameState.GetInstance().ClearState();
                 SceneManager.LoadScene("Scenes/MenuScene");
             });
         }

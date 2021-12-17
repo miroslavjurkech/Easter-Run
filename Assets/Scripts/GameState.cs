@@ -6,12 +6,12 @@ public class GameState
 
     private int _collectedEggs;
     private int _livesLeft;
-    private readonly DateTime _startedAt;
+    private int _whippingNumber;
+    private DateTime _startedAt;
     private TimeSpan _time;
 
     private GameState()
     {
-        _startedAt = DateTime.Now;
     }
 
     public static GameState GetInstance()
@@ -37,6 +37,30 @@ public class GameState
     public TimeSpan GetTime()
     {
         return _time;
+    }
+
+    public int GetWhippingNumber()
+    {
+        return _whippingNumber;
+    }
+
+    public void ClearState()
+    {
+        _collectedEggs = 0;
+        _livesLeft = 0;
+        _whippingNumber = 0;
+        _time = TimeSpan.Zero;
+    }
+
+    public void NewGame()
+    {
+        _startedAt = DateTime.Now;
+    }
+    
+    public void WhippingWin(int prize)
+    {
+        _collectedEggs += prize;
+        _whippingNumber++;
     }
 
     public void SaveState(int eggs, int lives)

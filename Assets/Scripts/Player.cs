@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using JetBrains.Annotations;
+using Behaviour;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
-    private Animator anim;
-    private Rigidbody rigidbody;
+    private Animator _anim;
+    private Rigidbody _rigidbody;
     
     public int maxHealth;
 
@@ -28,20 +28,18 @@ public class Player : MonoBehaviour
 
     public bool InFight { get; private set; }
 
-    private string FightExpected { get; set; }
-    public string FightUsed  { get; set; }
+    private Swipe FightExpected { get; set; }
+    public Swipe FightUsed  { get; set; }
     
     public delegate void OnHealthChangedDelegate();
     public OnHealthChangedDelegate OnHealthChangedCallback;
 
-    public GameObject CurrentTile { get; private set; }
-    
     public int numOfClearTilesAfterFall = 2;
     
     void Start()
     {
-        anim = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
         
         GameState state = GameState.GetInstance();
 
@@ -50,27 +48,31 @@ public class Player : MonoBehaviour
             points = state.GetEggs();
             health = state.GetLives();
         }
+        else
+        {
+            state.NewGame();
+        }
 
-        StartCoroutine("WaitForStart");
+        StartCoroutine(WaitForStart());
     }
 
     private IEnumerator WaitForStart()
     {
         yield return new WaitForSeconds (startAfter);
-        anim.SetBool("idle", false);
+        _anim.SetBool("idle", false);
         Run();
     }
 
     public void Run()
     {
         var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
-        rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints), 0, 0);
+        _rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints), 0, 0);
     }
 
     public void Stop()
     {
-        rigidbody.velocity = new Vector3( 0, 0, 0 );
-        anim.SetTrigger("stop");
+        _rigidbody.velocity = new Vector3( 0, 0, 0 );
+        _anim.SetTrigger("stop");
     }
     
     public void IncHealth()
@@ -102,33 +104,34 @@ public class Player : MonoBehaviour
     public void Kick()
     {
         Debug.Log("Kick");
-            anim.SetTrigger("kick");
+            _anim.SetTrigger("kick");
     }
 
     public void GetHit()
     {
-        anim.SetTrigger("hit");
+        _anim.SetTrigger("hit");
         DecPoints();
         
         LeaveFight();
     }
 
-    public void EnterFight(string expected)
+    public void EnterFight(Swipe expected)
     {
-        anim.SetTrigger("cancel");
+        _anim.SetTrigger("cancel");
         FightExpected = expected;
+        FightUsed = Swipe.None;
         InFight = true;
     }
 
     public void CancelCancel()
     {
-        anim.ResetTrigger("cancel");
+        _anim.ResetTrigger("cancel");
     }
 
     public void LeaveFight()
     {
-        FightExpected = null;
-        FightUsed = null;
+        FightExpected = Swipe.None;
+        FightUsed = Swipe.None;
         InFight = false;
     }
 
@@ -171,9 +174,9 @@ public class Player : MonoBehaviour
         mainCamera.backgroundColor = Color.black;
         mainCamera.cullingMask = 0;
         
-        anim.SetBool("idle", true);
-        anim.SetTrigger("idleAfterFall");
-        anim.ResetTrigger("cancel");
+        _anim.SetBool("idle", true);
+        _anim.SetTrigger("idleAfterFall");
+        _anim.ResetTrigger("cancel");
         
         ClearNearbyTiles(tile);
 

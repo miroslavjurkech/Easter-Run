@@ -1,3 +1,4 @@
+using Behaviour;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ namespace whiping
 {
     public class Arrows : MonoBehaviour
     {
-        public string direction;
+        public Swipe direction;
         
         private Rigidbody _rigidbody;
     

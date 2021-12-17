@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Behaviour;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-    private BoxCollider animationTrigger;
     private Animator anim;
-    public string Direction { get; set; }
+    public Swipe Direction { get; set; }
 
 
     // Start is called before the first frame update
@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     {
         Direction = ChooseDirection();
         anim = GetComponent<Animator>();
-        animationTrigger = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -37,22 +36,22 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger("punch");
     }
 
-    public string ChooseDirection()
+    public Swipe ChooseDirection()
     {
         int dir = Random.Range(0, 4);
         
         switch(dir)
         {
             case 0:
-                return "UP";
+                return Swipe.Up;
             case 1:
-                return "DOWN";
+                return Swipe.Down;
             case 2:
-                return "LEFT";
+                return Swipe.Left;
             case 3:
-                return "RIGHT";
+                return Swipe.Right;
         }
 
-        return "";
+        return Swipe.None;
     }
 }

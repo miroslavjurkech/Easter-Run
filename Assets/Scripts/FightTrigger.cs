@@ -1,4 +1,5 @@
 using System;
+using Behaviour;
 using UnityEngine;
 
 public class FightTrigger : MonoBehaviour
@@ -9,7 +10,7 @@ public class FightTrigger : MonoBehaviour
             return;
 
         var dir = gameObject.GetComponentInParent<Enemy>().Direction;
-        
+
         GameObject.FindWithTag("Player").GetComponent<Player>().EnterFight(dir);
     }
 
