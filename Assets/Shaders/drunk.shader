@@ -1,4 +1,11 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+// Source: https://github.com/przemyslawzaworski/Unity3D-CG-programming/blob/master/drunk.shader
+//
+//
+// Unity shader programming (HLSL & GLSL).
+//
+// Only for educational purposes.
+//
+// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
 Shader "Drunk"
 {
