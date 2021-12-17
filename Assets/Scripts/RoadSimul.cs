@@ -22,6 +22,10 @@ public class RoadSimul : MonoBehaviour
     public Transform sandwichObj;
 
     private RoadLayoutGenerator _generator;
+    [SerializeField] private float changeForLowBarier = 40.0f;
+    [SerializeField] private float changeForHighBarier = 30.0f;
+    [SerializeField] private uint nOfWhipersPer100Tiles = 10;
+    
 
     [Range(0.2f, 5)] public float scale = 1;
 
@@ -31,7 +35,7 @@ public class RoadSimul : MonoBehaviour
     {
         _nextTileSpawn.x = 10;
         tileObj.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        _generator = new RoadLayoutGenerator(30, 40);
+        _generator = new RoadLayoutGenerator(changeForHighBarier, changeForLowBarier, nOfWhipersPer100Tiles);
 
         StartCoroutine(SpawnTile());
     }

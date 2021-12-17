@@ -14,21 +14,22 @@ public class RoadLayoutGenerator
     private const int GENERATED_ROAD_END = 102;
     private const int GENERATED_ROAD_LENGTH = GENERATED_ROAD_END + 1;
     private const int GENERATED_ROAD_WIDTH = 3;
+    private const int SPACE_NEEDED_WHIPER_FRONT = 3;
+    private const int SPACE_NEEDED_WHIPER_BACK = 2;
 
     private RoadType[,] _road = new RoadType[GENERATED_ROAD_LENGTH, GENERATED_ROAD_WIDTH];
     private int _nextRowToGenerate;
     private int _nextRowToGet;
 
-    [SerializeField]
-    private float _chanceForHighBarier = 40.0f;
+    private float _chanceForHighBarier;
+    private float _chanceForLowBarier;
+    private uint _numberOfWhipersPer100Rows;
 
-    [SerializeField]
-    private float _chanceForLowBarier = 30.0f;
-
-    public RoadLayoutGenerator(float chanceForHighBarier, float chanceForLowBarier)
+    public RoadLayoutGenerator(float chanceForHighBarier, float chanceForLowBarier, uint numberOfWhipersPer100Rows)
     {
         _chanceForLowBarier = chanceForLowBarier;
         _chanceForHighBarier = chanceForHighBarier;
+        _numberOfWhipersPer100Rows = numberOfWhipersPer100Rows;
 
         for (int i = 0; i < 2; ++i)
         {
@@ -41,6 +42,7 @@ public class RoadLayoutGenerator
         ClearRoad(2);
         _nextRowToGenerate = 2;
         Generate();
+        AddWhipers();
         _nextRowToGet = 0;
     }
 
@@ -135,6 +137,38 @@ public class RoadLayoutGenerator
         return false;
     }
 
+    void AddWhipers()
+    {
+        uint sumOfPlacedWhipers = 0;
+        while ( sumOfPlacedWhipers < _numberOfWhipersPer100Rows )
+        {
+            int whiper_x_coord = Random.Range(0, GENERATED_ROAD_WIDTH);
+            int whiper_y_coord = Random.Range(SPACE_NEEDED_WHIPER_FRONT + 1, GENERATED_ROAD_LENGTH - SPACE_NEEDED_WHIPER_BACK - 1);
+
+            if ( _road[whiper_y_coord - SPACE_NEEDED_WHIPER_FRONT, whiper_x_coord] != RoadType.Reachable 
+                || _road[whiper_y_coord + SPACE_NEEDED_WHIPER_BACK, whiper_x_coord] != RoadType.Reachable )
+                continue; //First and last square of whiper block must be reachable, so player can acually reach enemy whiper and safely exit him
+
+            bool whiperExistItThisBlock = false;
+            for (int i = 1 - SPACE_NEEDED_WHIPER_FRONT; i < SPACE_NEEDED_WHIPER_BACK; ++i)
+            {
+                if ( _road[whiper_y_coord + i, whiper_x_coord] == RoadType.TheWhiper )
+                {
+                    whiperExistItThisBlock = true;
+                }
+            }
+            if (whiperExistItThisBlock) continue; //Cant place whiper here, the one already here would be overwritten
+
+            //Placing enemy whiper
+            for (int i = 1 - SPACE_NEEDED_WHIPER_FRONT; i < SPACE_NEEDED_WHIPER_BACK; ++i)
+            {
+                _road[whiper_y_coord + i, whiper_x_coord] = RoadType.Reachable;
+            }
+            _road[whiper_y_coord, whiper_x_coord] = RoadType.TheWhiper;
+            ++sumOfPlacedWhipers;
+        }
+    }
+
     void Generate()
     {
         while ( _nextRowToGenerate < GENERATED_ROAD_END )
@@ -165,6 +199,7 @@ public class RoadLayoutGenerator
             ClearRoad(2);
             _nextRowToGenerate = 1;
             Generate();
+            AddWhipers();
             _nextRowToGet = 1;
         }
 
