@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Barrier : MonoBehaviour
 {
     private void OnCollisionEnter(Collision other) {
-        Debug.Log("You collided with barrier: " + other.gameObject.tag);
 
         if (!other.gameObject.tag.Equals("Player")) return;
         

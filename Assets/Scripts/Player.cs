@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     public void Run()
     {
         var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
-        rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed)*actPointsInc/speedUpUntilPoints), 0, 0);
+        rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints), 0, 0);
     }
 
     public void Stop()
@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
 
     public void Kick()
     {
+        Debug.Log("Kick");
             anim.SetTrigger("kick");
     }
 
@@ -142,7 +143,10 @@ public class Player : MonoBehaviour
         if (points >= amount)
         {
             points -= amount;
-            Run();
+        }
+        else
+        {
+            points = 0;
         }
     }
 

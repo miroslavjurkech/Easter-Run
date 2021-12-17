@@ -42,7 +42,7 @@ public class HealthBarController : MonoBehaviour
     {
         for (var i = 0; i < _heartFills.Length; i++)
         {
-            Debug.Log("Iterujem: " + i);
+            //Debug.Log("Iterujem: " + i);
             _heartFills[i].fillAmount =  i >= _player.maxHealth - _player.health ? 1 : 0;
         }
     }

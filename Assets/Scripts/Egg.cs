@@ -19,7 +19,6 @@ public class Egg : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("You collected an egg");
 
         if (!other.gameObject.tag.Equals("PlayerSpine")) return;
         

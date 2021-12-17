@@ -11,8 +11,7 @@ public class KickTrigger : MonoBehaviour
     {
         if (!other.CompareTag("PlayerSpine"))
             return;
-     
-        Debug.Log("PlayerEntered");
+        
         if (!_exited)
         {
             var script = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -32,7 +31,10 @@ public class KickTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("PlayerExited");
+        
+        if (!other.CompareTag("PlayerSpine"))
+            return;
+        
         _exited = true;
     }
 }

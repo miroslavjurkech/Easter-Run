@@ -16,7 +16,6 @@ public class TileDestroyer : MonoBehaviour
     private static IEnumerator DisposeTile(GameObject tile)
     {
         yield return new WaitForSeconds(2);
-        Debug.Log("Destroying tile: " + tile.name);
         Destroy(tile);
     }
 }
