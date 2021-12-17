@@ -11,7 +11,7 @@ public class RoadSimul : MonoBehaviour
     public Transform railingObj;
     public Transform clothesObj;
     public Transform signObj;
-    public Transform eggObj;
+    public Transform[] eggObjs;
     public Transform bushObj;
     public Transform enemyObj;
     public Transform girlObj;
@@ -30,6 +30,11 @@ public class RoadSimul : MonoBehaviour
     [Range(0.2f, 5)] public float scale = 1;
 
     private long eggsGenerated = 0;
+
+    private void Awake() {
+        if ( eggObjs.Length == 0 )
+            Debug.LogError("No eggs to generate must be added in Game Editor");
+    }
 
     void Start()
     {
@@ -97,7 +102,8 @@ public class RoadSimul : MonoBehaviour
                             return girlObj;
                         }
                         eggsGenerated++;
-                        return eggObj;
+                        int variatType = UnityEngine.Random.Range(0,eggObjs.Length);
+                        return eggObjs[variatType];
                 }
                 break;
             case RoadType.BarierHigh:
