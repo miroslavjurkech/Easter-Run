@@ -96,14 +96,14 @@ public class RoadSimul : MonoBehaviour
                     case 6:
                     case 7:
                     case 8:
-                        if ((eggsGenerated >= 150) && ((eggsGenerated % 50) == 0))
+                        if ((eggsGenerated % 50) == 0)
                         {
                             eggsGenerated++;
                             return girlObj;
                         }
                         eggsGenerated++;
-                        int variatType = UnityEngine.Random.Range(0,eggObjs.Length);
-                        return eggObjs[variatType];
+                        int variantType = Random.Range(0,eggObjs.Length);
+                        return eggObjs[variantType];
                 }
                 break;
             case RoadType.BarierHigh:
