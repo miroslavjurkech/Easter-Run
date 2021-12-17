@@ -18,6 +18,9 @@ TagManager:
   - Road
   - Tile
   - Girl
+  - ScoreboardButton
+  - ScoreTableHeader
+  - BackButton
   layers:
   - Default
   - TransparentFX

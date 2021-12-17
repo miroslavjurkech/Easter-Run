@@ -7,13 +7,13 @@ namespace Menu
         private const string TOP_SCORE_PREFIX = "topScore.";
         private const int SCORES_SAVED = 10;
 
-        private ScoreManager _instance = new ScoreManager();
+        private static ScoreManager _instance = new ScoreManager();
 
         private ScoreManager()
         {
         }
 
-        public ScoreManager GetInstance()
+        public static ScoreManager GetInstance()
         {
             return _instance;
         }
@@ -21,9 +21,11 @@ namespace Menu
         public void AddScore(ScoreRecord score)
         {
             var scores = GetTopScores();
+            
             scores.Add(score);
             scores.Sort();
             scores.Reverse();
+            
             if (scores.Count > SCORES_SAVED)
             {
                 scores.RemoveRange(SCORES_SAVED, scores.Count - SCORES_SAVED);

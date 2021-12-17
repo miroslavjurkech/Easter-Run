@@ -5,10 +5,20 @@ namespace Menu
 {
     public struct ScoreRecord : IComparable<ScoreRecord>
     {
+        public static readonly string DateFormat = "dd.MM.yyyy"; 
+        public static readonly string TimeFormat = @"hh\:mm\:ss";
+        
         public int m_eggsCollected;
         public DateTime m_date;
         public TimeSpan m_neededTime;
 
+        public ScoreRecord(GameState state)
+        {
+            m_eggsCollected = state.GetEggs();
+            m_date = state.GetStart();
+            m_neededTime = state.GetTime();
+        }
+        
         public ScoreRecord( int eggsCollected, TimeSpan neededTime, DateTime date )
         {
             m_eggsCollected = eggsCollected;
@@ -32,8 +42,8 @@ namespace Menu
             }
 
             PlayerPrefs.SetInt(keyPrefix + nameof(m_eggsCollected), m_eggsCollected);
-            PlayerPrefs.SetString(keyPrefix + nameof(m_date), m_date.ToString("dd MM yyyy"));
-            PlayerPrefs.SetString(keyPrefix + nameof(m_neededTime), m_neededTime.ToString("hh:mm:ss"));
+            PlayerPrefs.SetString(keyPrefix + nameof(m_date), m_date.ToString(DateFormat));
+            PlayerPrefs.SetString(keyPrefix + nameof(m_neededTime), m_neededTime.ToString(TimeFormat));
             PlayerPrefs.Save();
         }
 
@@ -46,11 +56,13 @@ namespace Menu
 
             m_eggsCollected = PlayerPrefs.GetInt(keyPrefix + nameof(m_eggsCollected), 0 );
         
-            var date = PlayerPrefs.GetString(keyPrefix + nameof(m_date), "00 00 0000");
-            m_date = DateTime.ParseExact(date, "dd MM yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            var date = PlayerPrefs.GetString(keyPrefix + nameof(m_date), "01.01.2021");
+            Debug.Log("Date: " + date);
+            m_date = DateTime.ParseExact(date, DateFormat, System.Globalization.CultureInfo.InvariantCulture);
 
-            var timespan = PlayerPrefs.GetString(keyPrefix + nameof(m_neededTime), "00:00:00" );
-            m_neededTime = TimeSpan.ParseExact(timespan, "hh:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            var timespan = PlayerPrefs.GetString(keyPrefix + nameof(m_neededTime), "00:00:00");
+            Debug.Log("TimeSpan: " + timespan);
+            m_neededTime = TimeSpan.ParseExact(timespan, TimeFormat, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public int CompareTo(ScoreRecord other) 

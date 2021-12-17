@@ -10,6 +10,8 @@ namespace Menu
         {
             var startBtn = GameObject.FindWithTag("StartButton").GetComponent<Button>();
             startBtn.onClick.AddListener(() => { SceneManager.LoadScene("Scenes/BaseScene"); });
+            var scoreBtn = GameObject.FindWithTag("ScoreboardButton").GetComponent<Button>();
+            scoreBtn.onClick.AddListener(() => { SceneManager.LoadScene("Scenes/ScoreboardScene"); });
         }
     }
 }

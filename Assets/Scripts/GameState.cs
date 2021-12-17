@@ -1,4 +1,5 @@
 using System;
+using Menu;
 
 public class GameState
 {
@@ -46,6 +47,8 @@ public class GameState
 
     public void ClearState()
     {
+        ScoreManager.GetInstance().AddScore(new ScoreRecord(this));
+        
         _collectedEggs = 0;
         _livesLeft = 0;
         _whippingNumber = 0;
