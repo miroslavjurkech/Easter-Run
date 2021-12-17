@@ -2168,7 +2168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62b025f4f3e2f0a5baa8cf11e783c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSwipeEnabled: 0
+  mainCamera: {fileID: 0}
+  minSwipeLength: 15
 --- !u!114 &1683085396493430042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2186,6 +2187,9 @@ MonoBehaviour:
   health: 3
   points: 0
   speed: 4
+  speedUpUntilPoints: 40
+  maxSpeed: 8
+  numOfClearTilesAfterFall: 2
 --- !u!1 &5084484187628997961
 GameObject:
   m_ObjectHideFlags: 0

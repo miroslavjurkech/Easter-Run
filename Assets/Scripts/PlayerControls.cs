@@ -202,22 +202,8 @@ public class PlayerControls : MonoBehaviour
             {
                 _anim.SetTrigger("slide");
             }
-        } else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            StartCoroutine(FlashScreen());
         }
         
         _player.transform.position = pos;
-    }
-
-    private IEnumerator FlashScreen()
-    {
-        Debug.Log("Called");
-        mainCamera.clearFlags = CameraClearFlags.SolidColor;
-        mainCamera.backgroundColor = Color.black;
-        mainCamera.cullingMask = 0;
-        yield return new WaitForSeconds(1f);
-        mainCamera.clearFlags = CameraClearFlags.Skybox;
-        mainCamera.cullingMask = 1;
     }
 }

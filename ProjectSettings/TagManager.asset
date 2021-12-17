@@ -16,6 +16,8 @@ TagManager:
   - KickTrigger
   - PlayerKickFoot
   - Road
+  - Tile
+  - Girl
   layers:
   - Default
   - TransparentFX

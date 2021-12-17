@@ -42,6 +42,14 @@ public class Player : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
+        
+        GameState state = GameState.GetInstance();
+
+        if (state.GetEggs() != 0)
+        {
+            points = state.GetEggs();
+            health = state.GetLives();
+        }
 
         StartCoroutine("WaitForStart");
     }
@@ -209,10 +217,14 @@ public class Player : MonoBehaviour
         }
         else
         {
-            //TODO end game?
+            SaveState();
             GameObject.FindWithTag("GameController").GetComponent<RoadSimul>().StopAllCoroutines();
-            PlayerPrefs.SetString("points", points.ToString());
             SceneManager.LoadScene("Scenes/GameOverScene");
         }
+    }
+
+    public void SaveState()
+    {
+        GameState.GetInstance().SaveState(points, health);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Behaviour;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace whiping
@@ -36,10 +37,16 @@ namespace whiping
             {
                 //TODO: loose
                 StopAllCoroutines();
+                SceneManager.LoadScene("Scenes/BaseScene");
             } else if (bar.fillAmount >= 1)
             {
                 //TODO: win
                 StopAllCoroutines();
+                
+                var state = GameState.GetInstance();
+                state.SaveState(state.GetEggs() + 5, state.GetLives());
+                
+                SceneManager.LoadScene("Scenes/BaseScene");
             }
             
             string dir;
