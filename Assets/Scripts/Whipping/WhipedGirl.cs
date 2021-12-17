@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace whiping
+namespace Whipping
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(AudioSource))]

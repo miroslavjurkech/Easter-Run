@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace whiping
+namespace Whipping
 {
     [RequireComponent(typeof(Animator))]
     public class PlayerWhiping : MonoBehaviour

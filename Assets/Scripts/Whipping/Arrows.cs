@@ -1,8 +1,7 @@
 using Behaviour;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace whiping
+namespace Whipping
 {
     public class Arrows : MonoBehaviour
     {
@@ -19,11 +18,6 @@ namespace whiping
         {
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.velocity = new Vector3( speed, 0, 0);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
         }
     }
 }

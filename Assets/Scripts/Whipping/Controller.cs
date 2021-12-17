@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Behaviour;
@@ -7,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace whiping
+namespace Whipping
 {
     public class Controller : MonoBehaviour
     {
