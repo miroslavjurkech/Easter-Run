@@ -6,6 +6,7 @@ public class FollowPlayer : MonoBehaviour
     public Transform player;
     private Vector3 _initialOffset;
     private Vector3 _cameraPosition;
+    private bool isShake;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +21,11 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _cameraPosition = player.position + _initialOffset;
-        transform.position = _cameraPosition;
+        if (!isShake)
+        {
+            _cameraPosition = player.position + _initialOffset;
+            transform.position = _cameraPosition;
+        }
     }
 
     public void ShakeCamera()
@@ -31,16 +35,17 @@ public class FollowPlayer : MonoBehaviour
     
     private IEnumerator RandomizeCameraPosition(float duration, float magnitude)
     {
-        var originalPosition = transform.position;
+        isShake = true;
         var elapsedTime = 0f;
         while(elapsedTime < duration)
         {
-            float x = Random.Range(-2f, 2f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
- 
-            transform.position = new Vector3(originalPosition.x + x, originalPosition.y + y, transform.position.z);
+            var factor = Random.Range(-1f, 1f) * magnitude;
+            
+            var originalPosition = player.position + _initialOffset;
+            transform.position = new Vector3(originalPosition.x + factor, originalPosition.y, originalPosition.z);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        isShake = false;
     }
 }
