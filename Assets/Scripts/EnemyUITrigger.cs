@@ -4,17 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(AudioSource))]
 public class EnemyUITrigger : MonoBehaviour
 {
     public Image up;
     public Image down;
     public Image left;
     public Image right;
+    private AudioSource sound;
     
+    private void Awake() {
+        sound = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("PlayerSpine"))
             return;
+
+        AudioSource.PlayClipAtPoint(sound.clip, transform.position);
 
         switch(gameObject.GetComponentInParent<Enemy>().Direction)
         {
