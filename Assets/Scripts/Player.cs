@@ -193,8 +193,10 @@ public class Player : MonoBehaviour
         _anim.SetBool("idle", true);
         _anim.SetTrigger("idleAfterFall");
         _anim.ResetTrigger("cancel");
-        
+
         ClearNearbyTiles(tile);
+        
+        LeaveFight();
 
         yield return new WaitForSeconds(0.5f);
 

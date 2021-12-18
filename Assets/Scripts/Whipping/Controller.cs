@@ -146,7 +146,8 @@ namespace Whipping
 
         private IEnumerator SpawnArrow()
         {
-            yield return new WaitForSeconds(1);
+            int seconds = Random.Range(4, 10);
+            yield return new WaitForSeconds(seconds/10f);
 
             int dir = Random.Range(0, 4);
 

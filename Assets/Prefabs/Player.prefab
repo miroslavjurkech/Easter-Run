@@ -1307,7 +1307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7718372762812718204}
-  - component: {fileID: 5350320464653599764}
+  - component: {fileID: 1870195379958317646}
   m_Layer: 0
   m_Name: LeftToe_End
   m_TagString: PlayerKickFoot
@@ -1330,19 +1330,20 @@ Transform:
   m_Father: {fileID: 5048580211051249615}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5350320464653599764
-SphereCollider:
+--- !u!136 &1870195379958317646
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3420548807640248292}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!1 &3440807930432503891
 GameObject:
   m_ObjectHideFlags: 0

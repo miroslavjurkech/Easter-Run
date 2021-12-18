@@ -21,6 +21,7 @@ TagManager:
   - ScoreboardButton
   - ScoreTableHeader
   - BackButton
+  - MusicToggle
   layers:
   - Default
   - TransparentFX

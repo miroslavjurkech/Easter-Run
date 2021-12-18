@@ -78,7 +78,7 @@ public class PlayerControls : MonoBehaviour
             switch (dir)
             {
                 case Swipe.Left:
-                    if (_player.position.z < 6 && !_sideMove)
+                    if (_player.position.z < 5.9 && !_sideMove)
                     {
                         _sideMove = true;
                         _sideMoveDirection = dir;
