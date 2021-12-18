@@ -1,6 +1,5 @@
 using Behaviour;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Transform))]
 [RequireComponent(typeof(Animator))]
@@ -10,13 +9,9 @@ public class PlayerControls : MonoBehaviour
     private Player _script;
     private Animator _anim;
 
-    [FormerlySerializedAs("Camera")] 
-    public Camera mainCamera;
-    
-    public float minSwipeLength = 15f;
-    private Vector2? _firstPressPos;
-    private Vector2 _secondPressPos;
-    private Vector2 _currentSwipe;
+    private bool _sideMove;
+    private Swipe _sideMoveDirection;
+    private float _sideMoveTarget;
     
     void Start()
     {
@@ -27,6 +22,44 @@ public class PlayerControls : MonoBehaviour
         SwipeDetector.OnSwipe += OnSwipe;
         
     }
+    
+    private void FixedUpdate()
+    {
+        if (_sideMove)
+        {
+            var pos = _player.position;
+            var delta = Time.deltaTime * _script.GetCurrentSpeed();
+
+            if (Swipe.Right.Equals(_sideMoveDirection))
+            {
+                if (pos.z - delta <= _sideMoveTarget)
+                {
+                    pos.z = Mathf.Round(_sideMoveTarget);
+                    _sideMove = false;
+                    _sideMoveDirection = Swipe.None;
+                }
+                else
+                {
+                    pos.z -= delta;
+                }
+            } else if (Swipe.Left.Equals(_sideMoveDirection))
+            {
+                if (pos.z + delta >= _sideMoveTarget)
+                {
+                    pos.z = Mathf.Round(_sideMoveTarget);
+                    _sideMove = false;
+                    _sideMoveDirection = Swipe.None;
+                }
+                else
+                {
+                    pos.z += delta;
+                }
+            }
+
+            _player.position = pos;
+        }
+    }
+    
     void OnDestroy(){
         SwipeDetector.OnSwipe -= OnSwipe;
     }
@@ -42,21 +75,23 @@ public class PlayerControls : MonoBehaviour
         }
         else
         {
-            Vector3 pos = _player.position;
-            
             switch (dir)
             {
                 case Swipe.Left:
-                    if (pos.z < 6)
+                    if (_player.position.z < 6 && !_sideMove)
                     {
-                        pos.z += 1;
+                        _sideMove = true;
+                        _sideMoveDirection = dir;
+                        _sideMoveTarget = _player.position.z + 1;
                     }
 
                     break;
                 case Swipe.Right:
-                    if (pos.z >= 5)
+                    if (_player.position.z >= 5 && !_sideMove)
                     {
-                        pos.z -= 1;
+                        _sideMove = true;
+                        _sideMoveDirection = dir;
+                        _sideMoveTarget = _player.position.z - 1;
                     }
 
                     break;
@@ -67,8 +102,6 @@ public class PlayerControls : MonoBehaviour
                     _anim.SetTrigger("slide");
                     break;
             }
-            
-            _player.position = pos;
         }
     }
 }

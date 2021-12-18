@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Behaviour;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
@@ -10,17 +11,24 @@ public class Player : MonoBehaviour
 {
     private Animator _anim;
     private Rigidbody _rigidbody;
+    private Camera _mainCamera;
     
-    public int maxHealth;
+    public int maxHealth = 3;
 
     [Header("Idle for given time in second and then run")]
-    public float startAfter;
+    public float startAfter = 2f;
     
-    public int health;
-    public int points;
+    public int health = 3;
+    public int points = 0;
 
     [SerializeField]
-    private float speed;
+    private float speed = 4f;
+
+    [SerializeField]
+    private float animSpeedMultiplierAddition = 0.1f;
+    
+    [SerializeField]
+    private float animSpeedMultiplierMax = 1.7f;
 
     public int speedUpUntilPoints = 40;
 
@@ -35,11 +43,12 @@ public class Player : MonoBehaviour
     public OnHealthChangedDelegate OnHealthChangedCallback;
 
     public int numOfClearTilesAfterFall = 2;
-    
+
     void Start()
     {
         _anim = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         
         GameState state = GameState.GetInstance();
 
@@ -63,10 +72,23 @@ public class Player : MonoBehaviour
         Run();
     }
 
+    public float GetCurrentSpeed()
+    {
+        return _rigidbody.velocity.x;
+    }
+
     public void Run()
     {
         var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
-        _rigidbody.velocity = new Vector3(speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints), 0, 0);
+
+        var newSpeed = speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints);
+
+        if (_anim.GetFloat("speedMultiplier") < animSpeedMultiplierMax && Mathf.Floor(newSpeed) - Mathf.Floor(_rigidbody.velocity.x) >= 1)
+        {
+            _anim.SetFloat("speedMultiplier", _anim.GetFloat("speedMultiplier") + animSpeedMultiplierAddition);
+        }
+
+        _rigidbody.velocity = new Vector3(newSpeed, 0, 0);
     }
 
     public void Stop()
@@ -161,18 +183,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AfterHit(Transform tile)
+    private IEnumerator AfterHit(Transform tile)
     {
-        var mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        
-        StartCoroutine(FlashScreen(mainCamera, tile));
-    }
-    
-    private IEnumerator FlashScreen(Camera mainCamera, Transform tile)
-    {
-        mainCamera.clearFlags = CameraClearFlags.SolidColor;
-        mainCamera.backgroundColor = Color.black;
-        mainCamera.cullingMask = 0;
+        _mainCamera.clearFlags = CameraClearFlags.SolidColor;
+        _mainCamera.backgroundColor = Color.black;
+        _mainCamera.cullingMask = 0;
         
         _anim.SetBool("idle", true);
         _anim.SetTrigger("idleAfterFall");
@@ -182,8 +197,8 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        mainCamera.clearFlags = CameraClearFlags.Skybox;
-        mainCamera.cullingMask = 1;
+        _mainCamera.clearFlags = CameraClearFlags.Skybox;
+        _mainCamera.cullingMask = 1;
 
         StartCoroutine(WaitForStart());
     }
@@ -209,7 +224,7 @@ public class Player : MonoBehaviour
             {
                 if (tile != null)
                 {
-                    AfterHit(tile);
+                    StartCoroutine(AfterHit(tile));
                 }
             }
             else
