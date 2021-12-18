@@ -31,9 +31,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float animSpeedMultiplierMax = 1.7f;
 
-    public int speedUpUntilPoints = 40;
+    //public int speedUpUntilPoints = 40;
 
-    public float maxSpeed = 8;
+    //public float maxSpeed = 8;
+    [SerializeField] [Range(2,10)]
+    private float speed_logarithm_base = 4;
+
+    [SerializeField]
+    private float speed_base = 4.0f;
 
     public bool InFight { get; private set; }
 
@@ -81,9 +86,10 @@ public class Player : MonoBehaviour
 
     public void Run()
     {
-        var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
+        /*var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
 
-        var newSpeed = speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints);
+        var newSpeed = speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints);*/
+        var newSpeed = speed_base + Mathf.Log(this.points + 1, speed_logarithm_base);
 
         if (_anim.GetFloat("speedMultiplier") < animSpeedMultiplierMax && Mathf.Floor(newSpeed) - Mathf.Floor(_rigidbody.velocity.x) >= 1)
         {
