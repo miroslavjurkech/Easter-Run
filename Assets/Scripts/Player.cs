@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     private Rigidbody _rigidbody;
     private Camera _mainCamera;
     private AudioSource _audio;
+
+    [SerializeField]
+    private AudioClip[] _auSounds;
+    [SerializeField]
+    private AudioClip _myLegs;
     
     public int maxHealth = 3;
 
@@ -245,5 +250,21 @@ public class Player : MonoBehaviour
     public void SaveState()
     {
         GameState.GetInstance().SaveState(points, health);
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if ( other.gameObject.tag == "Barrier")
+        {
+            if ( other.gameObject.name.Contains("RailingSolid") )
+            {
+                _audio.PlayOneShot(_myLegs);
+            }
+            else if ( _auSounds.Length > 0 )
+            {
+                int index = Random.Range(0, _auSounds.Length);
+                _audio.PlayOneShot(_auSounds[index]);
+            }
+        }
+
     }
 }

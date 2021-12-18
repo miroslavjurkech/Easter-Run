@@ -1590,35 +1590,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 395765156356109268, guid: e642b67da05206fe08315e4c44c621c1,
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
         type: 3}
-      propertyPath: m_TagString
-      value: PlayerSpine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683085396493430040, guid: e642b67da05206fe08315e4c44c621c1,
-        type: 3}
-      propertyPath: Camera
+      propertyPath: _myLegs
       value: 
-      objectReference: {fileID: 47061560}
-    - target: {fileID: 1683085396493430040, guid: e642b67da05206fe08315e4c44c621c1,
+      objectReference: {fileID: 8300000, guid: e94afe1bc6cdc6584b6a9e009fda83d8, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
         type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 47061560}
-    - target: {fileID: 1683085396493430040, guid: e642b67da05206fe08315e4c44c621c1,
-        type: 3}
-      propertyPath: isSwipeEnabled
-      value: 0
+      propertyPath: _auSounds.Array.size
+      value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8514b504d106533299b21aa948f0720, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c5adc7a44846142db9b5fb1ab8b2ce9, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: f4dabe45efb9922c79ee3a4719f8f2ff, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: ee4c7a6ffa74fd875bbc1631fcd91b09, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 38bb9f85c0d699ad98d2cb7c4df8ffbd, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: b821f4e4347efaf5a9d5d597a0cfbfe5, type: 3}
+    - target: {fileID: 1683085396493430042, guid: e642b67da05206fe08315e4c44c621c1,
+        type: 3}
+      propertyPath: _auSounds.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 41666186aa103a849a6338bdf3a991a5, type: 3}
     - target: {fileID: 4961696814000308126, guid: e642b67da05206fe08315e4c44c621c1,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5350320464653599764, guid: e642b67da05206fe08315e4c44c621c1,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5733271829449844004, guid: e642b67da05206fe08315e4c44c621c1,
         type: 3}
