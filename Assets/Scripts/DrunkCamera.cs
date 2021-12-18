@@ -24,6 +24,9 @@ public class DrunkCamera : MonoBehaviour
     private TimeSpan remainingTime = TimeSpan.Zero;
     private DateTime lastUpdate;
     private AudioSource song;
+    [SerializeField]
+    private AudioClip drunkSong;
+
     [SerializeField] private int fadeOutTime = 5;
 
     private void Awake() {
@@ -50,7 +53,11 @@ public class DrunkCamera : MonoBehaviour
         {
             remainingTime = TimeSpan.Zero;
             if (song != null)
+            {
                 song.Stop();
+                song.volume = 1.0f;
+                song.Play();
+            }
             enabled = false;
         }
     }
@@ -58,7 +65,10 @@ public class DrunkCamera : MonoBehaviour
     private void OnEnable() {
         lastUpdate = DateTime.Now;
         if (song != null)
-            song.Play();
+        {
+            song.Stop();
+            song.PlayOneShot(drunkSong);
+        }
     }
 
     public void AddEfectTime(int additionalSeconds)
