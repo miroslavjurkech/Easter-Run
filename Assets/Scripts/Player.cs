@@ -3,15 +3,16 @@ using UnityEngine;
 using System.Collections;
 using Behaviour;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     private Animator _anim;
     private Rigidbody _rigidbody;
     private Camera _mainCamera;
+    private AudioSource _audio;
     
     public int maxHealth = 3;
 
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
         _anim = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        _audio = GetComponent<AudioSource>();
         
         GameState state = GameState.GetInstance();
 
@@ -131,9 +133,8 @@ public class Player : MonoBehaviour
 
     public void GetHit()
     {
+        _audio.Play();
         _anim.SetTrigger("hit");
-        DecPoints();
-        
         LeaveFight();
     }
 
@@ -229,6 +230,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                _audio.Play();
                 Destroy(o);
                 Run();
             }

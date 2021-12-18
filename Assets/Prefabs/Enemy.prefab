@@ -1326,6 +1326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d542f7eaa182b1da305f0fbe50ef2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wonFight: {fileID: 8300000, guid: 10be106b080c076ecb14bc8d21a5f879, type: 3}
+  lostFight: {fileID: 8300000, guid: 1ee1cfebd54f38f4aa840cc3cfbe458e, type: 3}
 --- !u!1 &2469109344760568552
 GameObject:
   m_ObjectHideFlags: 0

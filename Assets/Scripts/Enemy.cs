@@ -7,7 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-    private Animator anim;
+    public AudioClip wonFight;
+    public AudioClip lostFight;
+    
+    private Animator _anim;
     public Swipe Direction { get; set; }
 
 
@@ -15,13 +18,18 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         Direction = ChooseDirection();
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("PlayerKickFoot"))
         {
-            anim.SetTrigger("die");
+            if (lostFight != null)
+            {
+                AudioSource.PlayClipAtPoint(lostFight, transform.position);
+            }
+
+            _anim.SetTrigger("die");
         }
     }
 
@@ -33,10 +41,15 @@ public class Enemy : MonoBehaviour
 
     public void Punch()
     {
-        anim.SetTrigger("punch");
+        if (wonFight != null)
+        {
+            AudioSource.PlayClipAtPoint(wonFight, transform.position);
+        }
+
+        _anim.SetTrigger("punch");
     }
 
-    public Swipe ChooseDirection()
+    private Swipe ChooseDirection()
     {
         int dir = Random.Range(0, 4);
         

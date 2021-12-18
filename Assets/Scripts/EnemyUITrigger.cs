@@ -11,10 +11,10 @@ public class EnemyUITrigger : MonoBehaviour
     public Image down;
     public Image left;
     public Image right;
-    private AudioSource sound;
+    private AudioSource _sound;
     
     private void Awake() {
-        sound = GetComponent<AudioSource>();
+        _sound = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +22,7 @@ public class EnemyUITrigger : MonoBehaviour
         if (!other.CompareTag("PlayerSpine"))
             return;
 
-        AudioSource.PlayClipAtPoint(sound.clip, transform.position);
+        AudioSource.PlayClipAtPoint(_sound.clip, transform.position);
 
         switch(gameObject.GetComponentInParent<Enemy>().Direction)
         {
