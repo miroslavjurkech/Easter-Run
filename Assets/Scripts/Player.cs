@@ -152,16 +152,12 @@ public class Player : MonoBehaviour
         InFight = true;
     }
 
-    public void CancelCancel()
-    {
-        _anim.ResetTrigger("cancel");
-    }
-
     public void LeaveFight()
     {
         FightExpected = Swipe.None;
         FightUsed = Swipe.None;
         InFight = false;
+        _anim.ResetTrigger("cancel");
     }
 
     public bool IsSuccessfulFight()

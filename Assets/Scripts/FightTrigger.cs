@@ -1,5 +1,3 @@
-using System;
-using Behaviour;
 using UnityEngine;
 
 public class FightTrigger : MonoBehaviour
@@ -19,6 +17,6 @@ public class FightTrigger : MonoBehaviour
         if (!other.CompareTag("PlayerSpine"))
             return;
         
-        GameObject.FindWithTag("Player").GetComponent<Player>().CancelCancel();
+        GameObject.FindWithTag("Player").GetComponent<Player>().LeaveFight();
     }
 }

@@ -37,9 +37,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("PlayerSpine")) return;
         
-        var script = GameObject.FindWithTag("Player").GetComponent<Player>();
-        script.CancelCancel();
-        script.LeaveFight();
+        GameObject.FindWithTag("Player").GetComponent<Player>().LeaveFight();
     }
 
     //Event z punch animacie
