@@ -21,6 +21,10 @@ namespace Menu
             var musicToggle = GameObject.FindWithTag("MusicToggle").GetComponent<Toggle>();
             musicToggle.isOn = PlayerPrefs.GetInt("music", 1) == 1;
             musicToggle.onValueChanged.AddListener((val) => { PlayerPrefs.SetInt("music", val ? 1 : 0); });
+            
+            var hardDrunkToggle = GameObject.FindWithTag("HardDrunkToggle").GetComponent<Toggle>();
+            hardDrunkToggle.isOn = PlayerPrefs.GetInt("hardDrunkMode", 0) == 1;
+            hardDrunkToggle.onValueChanged.AddListener((val) => { PlayerPrefs.SetInt("hardDrunkMode", val ? 1 : 0); });
         }
     }
 }

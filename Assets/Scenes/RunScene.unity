@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: b0b7383c1cffbcda48f147281b218ef6, type: 2}
+  hardMaterial: {fileID: 2100000, guid: e715b88037a2661d49bfdbe15eb9cb2b, type: 2}
   drunkSong: {fileID: 8300000, guid: 62bf590d1dae9a099ae077fa0cec2d25, type: 3}
   fadeOutTime: 5
 --- !u!114 &47061566
