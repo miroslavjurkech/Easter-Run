@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Behaviour;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,8 +25,8 @@ namespace Whipping
         private int _boost;
         private bool _ended;
 
-        private Queue<Swipe> directions = new Queue<Swipe>();
-        private Queue<bool> statuses = new Queue<bool>();
+        private Queue<Swipe> _directions = new Queue<Swipe>();
+        private Queue<bool> _statuses = new Queue<bool>();
 
         // Start is called before the first frame update
         void Start()
@@ -74,7 +73,7 @@ namespace Whipping
             gameObject.GetComponent<Image>().color = Color.green;
             _boost++;
 
-            GameObject.FindWithTag("Player").GetComponent<PlayerWhiping>().Whip();
+            GameObject.FindWithTag("Player").GetComponent<PlayerWhipping>().Whip();
 
             if (_boost >= 3)
             {
@@ -88,13 +87,9 @@ namespace Whipping
 
         void OnSwipe(Swipe dir)
         {
-            if (Swipe.None.Equals(dir) || directions.Count <= 0) return;
-
-            var daco = directions.Dequeue();
+            if (Swipe.None.Equals(dir) || _directions.Count <= 0) return;
             
-            Debug.Log("Ocakavam: " + daco);
-            Debug.Log("Mam: " + dir);
-            bool status = dir.Equals(daco);
+            bool status = dir.Equals(_directions.Dequeue());
 
             if (status)
             {
@@ -105,7 +100,7 @@ namespace Whipping
                 Missed();
             }
 
-            statuses.Enqueue(status);
+            _statuses.Enqueue(status);
         }
 
         private IEnumerator EndWhipping(bool win)
@@ -141,7 +136,7 @@ namespace Whipping
 
             yield return new WaitForSeconds(1);
 
-            SceneManager.LoadScene("Scenes/BaseScene");
+            SceneManager.LoadScene("Scenes/RunScene");
         }
 
         private IEnumerator SpawnArrow()
@@ -174,20 +169,20 @@ namespace Whipping
         {
             var dir = other.gameObject.GetComponent<Arrows>().direction;
 
-            directions.Enqueue(dir);
+            _directions.Enqueue(dir);
             gameObject.GetComponent<Image>().color = Color.yellow;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (statuses.Count == 0)
+            if (_statuses.Count == 0)
             {
-                directions.Dequeue();
+                _directions.Dequeue();
                 Missed();
             }
             else
             {
-                statuses.Dequeue();
+                _statuses.Dequeue();
             }
         }
     }

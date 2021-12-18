@@ -2,10 +2,11 @@ using System.Collections;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoadSimul : MonoBehaviour
 {
-    public Transform tilePool;
+    //public Transform tilePool;
     public Transform tileObj;
     private Vector3 _nextTileSpawn;
 
@@ -16,7 +17,7 @@ public class RoadSimul : MonoBehaviour
     public Transform bushObj;
     public Transform enemyObj;
     public Transform girlObj;
-    public Transform lobollyObj;
+    public Transform puddleObj;
     public Transform pillarObj;
     public Transform solidRailObj;
     public Transform bottleObj;
@@ -26,6 +27,7 @@ public class RoadSimul : MonoBehaviour
     [SerializeField] private float changeForLowBarier = 40.0f;
     [SerializeField] private float changeForHighBarier = 30.0f;
     [SerializeField] private uint nOfWhipersPer100Tiles = 10;
+    [SerializeField] private int eggsNeededToGenerateGirl = 25;
     
 
     [Range(0.2f, 5)] public float scale = 1;
@@ -52,7 +54,7 @@ public class RoadSimul : MonoBehaviour
         foreach (var _ in Enumerable.Range(0, 3))
         {
             var barriers = _generator.GetNextRow();
-            var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation, tilePool);
+            var newTile = Instantiate(tileObj, _nextTileSpawn, tileObj.rotation, gameObject.transform);
             var objectsParent = newTile.Find("SpawnObjects");
             foreach (var (barrier, i) in barriers.Select((type, i) => (type, i - 1)))
             {
@@ -109,7 +111,7 @@ public class RoadSimul : MonoBehaviour
                     case 6:
                     case 7:
                     case 8:
-                        if ((eggsGenerated % 50) == 0 && (eggsGenerated > 0))
+                        if ((eggsGenerated % eggsNeededToGenerateGirl) == 0 && (eggsGenerated > 0))
                         {
                             Interlocked.Increment(ref eggsGenerated);
                             return girlObj;
@@ -138,7 +140,7 @@ public class RoadSimul : MonoBehaviour
                     case 0:
                         return clothesObj;
                     case 1:
-                        return lobollyObj;
+                        return puddleObj;
                     case 2:
                         return railingObj;
                     case 3:

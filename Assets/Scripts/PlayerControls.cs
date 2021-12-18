@@ -1,8 +1,8 @@
-using Behaviour;
 using UnityEngine;
 
 [RequireComponent(typeof(Transform))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Player))]
 public class PlayerControls : MonoBehaviour
 {
     private Transform _player;

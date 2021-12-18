@@ -10,22 +10,21 @@ public class GirlInRun : MonoBehaviour
     {
         if (!other.CompareTag("PlayerSpine"))
             return;
-        
-        if (!_exited)
-        {
-            var script = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-            script.SaveState();
-            script.Stop();
+        if (_exited) return;
+        
+        var script = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        script.SaveState();
+        script.Stop();
             
-            StartCoroutine(SwitchScene());
-        }
+        StartCoroutine(SwitchScene());
     }
 
     private IEnumerator SwitchScene()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Scenes/Whiping");
+        SceneManager.LoadScene("Scenes/WhippingScene");
     }
     
     private void OnTriggerExit(Collider other)

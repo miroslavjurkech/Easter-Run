@@ -7,7 +7,8 @@ public class Barrier : MonoBehaviour
 {
     private void OnCollisionEnter(Collision other) {
 
-        if (!other.gameObject.tag.Equals("Player")) return;
+        if (!other.gameObject.tag.Equals("Player")) 
+            return;
         
         GameObject.FindWithTag("Player").GetComponent<Player>().HitBarrier(gameObject);
     }

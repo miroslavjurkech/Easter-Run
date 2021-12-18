@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using System.Collections;
-using Behaviour;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
@@ -17,28 +15,24 @@ public class Player : MonoBehaviour
     public int maxHealth = 3;
 
     [Header("Idle for given time in second and then run")]
-    public float startAfter = 2f;
+    public float startAfter = 1f;
     
     public int health = 3;
     public int points = 0;
 
+    [Header("Increase to multiplier after every speed up bigger than 1")]
     [SerializeField]
-    private float speed = 4f;
-
-    [SerializeField]
-    private float animSpeedMultiplierAddition = 0.1f;
+    private float animSpeedMultiplierAddition = 0.08f;
     
+    [Header("Maximum value for animations multiplier")]
     [SerializeField]
-    private float animSpeedMultiplierMax = 1.7f;
+    private float animSpeedMultiplierMax = 1.6f;
 
-    //public int speedUpUntilPoints = 40;
-
-    //public float maxSpeed = 8;
     [SerializeField] [Range(2,10)]
-    private float speed_logarithm_base = 4;
+    private float speedLogarithmBase = 4;
 
     [SerializeField]
-    private float speed_base = 4.0f;
+    private float speedBase = 4.0f;
 
     public bool InFight { get; private set; }
 
@@ -89,7 +83,7 @@ public class Player : MonoBehaviour
         /*var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
 
         var newSpeed = speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints);*/
-        var newSpeed = speed_base + Mathf.Log(this.points + 1, speed_logarithm_base);
+        var newSpeed = speedBase + Mathf.Log(this.points + 1, speedLogarithmBase);
 
         if (_anim.GetFloat("speedMultiplier") < animSpeedMultiplierMax && Mathf.Floor(newSpeed) - Mathf.Floor(_rigidbody.velocity.x) >= 1)
         {
@@ -132,9 +126,8 @@ public class Player : MonoBehaviour
     }
 
     public void Kick()
-    {
-        Debug.Log("Kick");
-            _anim.SetTrigger("kick");
+    { 
+        _anim.SetTrigger("kick");
     }
 
     public void GetHit()
@@ -227,6 +220,8 @@ public class Player : MonoBehaviour
         {
             if (o.CompareTag("Enemy"))
             {
+                DecPoints(2);
+                
                 if (tile != null)
                 {
                     StartCoroutine(AfterHit(tile));

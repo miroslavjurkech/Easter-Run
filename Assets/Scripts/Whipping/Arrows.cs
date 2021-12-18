@@ -1,4 +1,3 @@
-using Behaviour;
 using UnityEngine;
 
 namespace Whipping

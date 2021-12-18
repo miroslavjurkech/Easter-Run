@@ -8,21 +8,22 @@ public class KickTrigger : MonoBehaviour
     {
         if (!other.CompareTag("PlayerSpine"))
             return;
-        
-        if (!_exited)
-        {
-            var script = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-            if (script.IsSuccessfulFight())
-            {
-                script.Kick();
-                script.LeaveFight();
-            }
-            else
-            {
-                script.Stop();
-                gameObject.GetComponentInParent<Enemy>().Punch();
-            }
+        if (_exited) 
+            return;
+        
+        
+        var script = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        if (script.IsSuccessfulFight())
+        {
+            script.Kick();
+            script.LeaveFight();
+        }
+        else
+        {
+            script.Stop();
+            gameObject.GetComponentInParent<Enemy>().Punch();
         }
     }
 

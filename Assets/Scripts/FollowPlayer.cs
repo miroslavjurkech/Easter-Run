@@ -6,7 +6,8 @@ public class FollowPlayer : MonoBehaviour
     public Transform player;
     private Vector3 _initialOffset;
     private Vector3 _cameraPosition;
-    private bool isShake;
+    private bool _isShake;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isShake)
+        if (!_isShake)
         {
             _cameraPosition = player.position + _initialOffset;
             transform.position = _cameraPosition;
@@ -35,7 +36,7 @@ public class FollowPlayer : MonoBehaviour
     
     private IEnumerator RandomizeCameraPosition(float duration, float magnitude)
     {
-        isShake = true;
+        _isShake = true;
         var elapsedTime = 0f;
         while(elapsedTime < duration)
         {
@@ -46,6 +47,6 @@ public class FollowPlayer : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        isShake = false;
+        _isShake = false;
     }
 }
