@@ -23,6 +23,7 @@ TagManager:
   - BackButton
   - MusicToggle
   - HelpButton
+  - MenuMusic
   layers:
   - Default
   - TransparentFX
