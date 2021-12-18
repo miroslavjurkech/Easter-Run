@@ -60,11 +60,26 @@ public class RoadSimul : MonoBehaviour
                 if (nextObj != null)
                 {
                     var blockSpawn = _nextTileSpawn;
-                    blockSpawn.z = 5 + i;
+                    var isGirl = nextObj.Equals(girlObj);
+                    if (isGirl)
+                    {
+                        blockSpawn.z = 5;
+                        foreach (Transform child in objectsParent.transform) {
+                            Destroy(child.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        blockSpawn.z = 5 + i;
+                    }
                     blockSpawn.y += nextObj.localPosition.y;
                     nextObj.localScale *= scale;
                     var o = Instantiate(nextObj, blockSpawn, nextObj.rotation, objectsParent);
                     nextObj.localScale /= scale;
+                    if (isGirl)
+                    {
+                        break;
+                    }
                 }
             }
             _nextTileSpawn.x += 5;
