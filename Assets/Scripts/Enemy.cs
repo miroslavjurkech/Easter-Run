@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Behaviour;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Animator))]
@@ -12,8 +11,7 @@ public class Enemy : MonoBehaviour
     
     private Animator _anim;
     public Swipe Direction { get; set; }
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +19,27 @@ public class Enemy : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("PlayerKickFoot"))
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Triggerol ma: " + other.tag + " name: " + other.name);
+        
+        if (!other.CompareTag("PlayerKickFoot")) return;
+        
+        if (lostFight != null)
         {
-            if (lostFight != null)
-            {
-                AudioSource.PlayClipAtPoint(lostFight, transform.position);
-            }
-
-            _anim.SetTrigger("die");
+            AudioSource.PlayClipAtPoint(lostFight, transform.position);
         }
+
+        _anim.SetTrigger("die");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PlayerSpine")) return;
+        
+        var script = GameObject.FindWithTag("Player").GetComponent<Player>();
+        script.CancelCancel();
+        script.LeaveFight();
     }
 
     //Event z punch animacie

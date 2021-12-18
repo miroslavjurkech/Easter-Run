@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     public int numOfClearTilesAfterFall = 2;
 
-    void Start()
+    private void Start()
     {
         _anim = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
@@ -111,8 +111,8 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
-    public void DecHealth()
+
+    private void DecHealth()
     {
         if (health > 0)
         {
@@ -160,9 +160,9 @@ public class Player : MonoBehaviour
 
     public bool IsSuccessfulFight()
     {
-        Debug.Log("FIGHT");
+        /*Debug.Log("FIGHT");
         Debug.Log("Should be: " + FightExpected);
-        Debug.Log("Is: " + FightUsed);
+        Debug.Log("Is: " + FightUsed);*/
         return InFight && FightExpected.Equals(FightUsed);
     }
 

@@ -87,7 +87,7 @@ public class PlayerControls : MonoBehaviour
 
                     break;
                 case Swipe.Right:
-                    if (_player.position.z >= 5 && !_sideMove)
+                    if (_player.position.z >= 4.9 && !_sideMove)
                     {
                         _sideMove = true;
                         _sideMoveDirection = dir;
