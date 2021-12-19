@@ -1,16 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Menu
 {
     public class HelpScript : MonoBehaviour
     {
-        public void Update()
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("Scenes/MenuScene");
-            }
+            var btn = GameObject.FindWithTag("BackButton").GetComponent<Button>();
+            btn.onClick.AddListener(() => {SceneManager.LoadScene("Scenes/MenuScene");});
         }
     }
 }
