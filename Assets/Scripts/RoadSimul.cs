@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class RoadSimul : MonoBehaviour
 {
-    //public Transform tilePool;
     public Transform tileObj;
     private Vector3 _nextTileSpawn;
 

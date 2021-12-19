@@ -28,7 +28,6 @@ namespace Whipping
         private Queue<Swipe> _directions = new Queue<Swipe>();
         private Queue<bool> _statuses = new Queue<bool>();
 
-        // Start is called before the first frame update
         void Start()
         {
             SwipeDetector.OnSwipe += OnSwipe;
@@ -38,7 +37,6 @@ namespace Whipping
             StartCoroutine(SpawnArrow());
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (_ended)

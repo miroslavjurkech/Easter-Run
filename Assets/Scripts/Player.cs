@@ -85,9 +85,6 @@ public class Player : MonoBehaviour
 
     public void Run()
     {
-        /*var actPointsInc = Math.Min(this.points, speedUpUntilPoints);
-
-        var newSpeed = speed + ((maxSpeed - speed) * actPointsInc / speedUpUntilPoints);*/
         var newSpeed = speedBase + Mathf.Log(this.points + 1, speedLogarithmBase);
 
         if (_anim.GetFloat("speedMultiplier") < animSpeedMultiplierMax && Mathf.Floor(newSpeed) - Mathf.Floor(_rigidbody.velocity.x) >= 1)
@@ -160,9 +157,6 @@ public class Player : MonoBehaviour
 
     public bool IsSuccessfulFight()
     {
-        /*Debug.Log("FIGHT");
-        Debug.Log("Should be: " + FightExpected);
-        Debug.Log("Is: " + FightUsed);*/
         return InFight && FightExpected.Equals(FightUsed);
     }
 

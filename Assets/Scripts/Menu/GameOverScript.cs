@@ -6,7 +6,6 @@ namespace Menu
 {
     public class GameOverScript : MonoBehaviour
     {
-        // Start is called before the first frame update
         public void Start()
         {
             var points = GameObject.FindWithTag("PointsInfo").GetComponent<Text>();

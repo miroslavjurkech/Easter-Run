@@ -8,7 +8,6 @@ public class FollowPlayer : MonoBehaviour
     private Vector3 _cameraPosition;
     private bool _isShake;
     
-    // Start is called before the first frame update
     void Start()
     {
         if (player == null)
@@ -19,7 +18,6 @@ public class FollowPlayer : MonoBehaviour
         _initialOffset = transform.position - player.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_isShake)

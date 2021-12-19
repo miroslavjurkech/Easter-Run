@@ -7,7 +7,6 @@ namespace menu
 {
     public class ScoreBoardScript : MonoBehaviour
     {
-        // Start is called before the first frame update
         void Start()
         {
             var scores = ScoreManager.GetInstance().GetTopScores();
